@@ -2,7 +2,6 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
-  /* Engineering (Default): Pure White background, Black ink */
   --bg-void: #ffffff;
   --text-primary: #000000;
   --text-secondary: rgba(0, 0, 0, 0.64);
@@ -22,18 +21,12 @@
   --chip-bg-hover: #000000;
   --chip-text-hover: #ffffff;
 
-  --scroll-btn-bg: #ffffff;
-  --scroll-btn-color: #000000;
-  --scroll-btn-border: rgba(0, 0, 0, 0.18);
-  --scroll-btn-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-
   --subtitle-bg: rgba(255, 255, 255, 0.92);
   --subtitle-color: #000000;
   --subtitle-border: rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme="photography"] {
-  /* Photography: Pure Black background, White ink */
   --bg-void: #000000;
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.68);
@@ -53,11 +46,6 @@ html[data-theme="photography"] {
   --chip-bg-hover: #ffffff;
   --chip-text-hover: #000000;
 
-  --scroll-btn-bg: #000000;
-  --scroll-btn-color: #ffffff;
-  --scroll-btn-border: rgba(255, 255, 255, 0.24);
-  --scroll-btn-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
-
   --subtitle-bg: rgba(0, 0, 0, 0.82);
   --subtitle-color: #ffffff;
   --subtitle-border: rgba(255, 255, 255, 0.15);
@@ -75,6 +63,7 @@ html {
   min-height: 100%;
   scrollbar-gutter: stable;
   overflow-x: clip;
+  overscroll-behavior-y: none;
   background-color: var(--bg-void);
   transition: background-color 0.45s ease;
 }
@@ -88,14 +77,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+  overscroll-behavior-y: none;
   display: flex;
   flex-direction: column;
   transition: color 0.45s ease;
 }
 
 .top-bar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 40;
   width: 100%;
   max-width: 1440px;
@@ -169,10 +161,16 @@ body {
   outline-offset: 2px;
 }
 
-.profile-trigger {
+.profile-Slot {
   position: absolute;
   right: 40px;
   top: 20px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.profile-trigger {
   pointer-events: auto;
   width: 54px;
   height: 54px;
@@ -215,7 +213,7 @@ body {
   width: 100%;
   max-width: 1380px;
   margin: 0 auto;
-  padding: 24px 44px 88px;
+  padding: 104px 44px 92px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -344,7 +342,6 @@ body {
   animation: none;
 }
 
-/* Hover Location Subtitle */
 .floating-card-subtitle {
   position: absolute;
   bottom: 0;
@@ -441,50 +438,122 @@ html[data-theme="photography"] .floating-card-meta {
   margin-top: 6px;
 }
 
-/* Circular Scroll Down Hint Popup Button */
-.scroll-hint-btn {
+/* Hand-Drawn Tutorial Hints (Tail-to-Tip Stroke Animations) */
+.hand-hint {
+  pointer-events: none;
+  z-index: 38;
+  transition: opacity 0.28s ease;
+}
+
+.hand-hint.is-hidden {
+  display: none;
+}
+
+.photo-hint {
+  position: absolute;
+  top: -58px;
+  left: -58px;
+  width: 108px;
+  height: 68px;
+  transform: rotate(-8deg);
+}
+
+.profile-hint {
+  position: relative;
+  margin-right: 10px;
+  margin-top: 8px;
+  width: 108px;
+  height: 62px;
+}
+
+.hand-arrow-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hand-stroke-main {
+  stroke: var(--text-primary);
+  stroke-width: 2.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawTailToTip 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+.hand-stroke-tip {
+  stroke: var(--text-primary);
+  stroke-width: 2.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawTailToTip 0.36s cubic-bezier(0.22, 1, 0.36, 1) 0.88s forwards;
+}
+
+@keyframes drawTailToTip {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Hand-Drawn Brush-Stroke Scroll Down Arrow */
+.scroll-brush-btn {
   position: fixed;
-  bottom: 24px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 35;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--scroll-btn-bg);
-  color: var(--scroll-btn-color);
-  border: 1px solid var(--scroll-btn-border);
-  box-shadow: var(--scroll-btn-shadow);
+  width: 46px;
+  height: 76px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  animation: scrollHintPulse 2.4s ease-in-out infinite;
-  transition:
-    transform 0.28s ease,
-    opacity 0.28s ease,
-    border-color 0.25s ease,
-    background-color 0.45s ease,
-    color 0.45s ease;
+  animation: brushBob 2.4s ease-in-out infinite;
+  transition: opacity 0.28s ease, transform 0.28s ease;
 }
 
-.scroll-hint-btn:hover {
-  transform: translateX(-50%) scale(1.12);
-  border-color: var(--surface-border-hover);
-}
-
-.scroll-hint-btn.is-hidden {
+.scroll-brush-btn.is-hidden {
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%) translateY(14px);
+  transform: translateX(-50%) translateY(10px);
 }
 
-@keyframes scrollHintPulse {
+.scroll-brush-btn.is-hidden .hand-stroke-main,
+.scroll-brush-btn.is-hidden .hand-stroke-tip {
+  animation: none;
+  stroke-dashoffset: 1;
+}
+
+.scroll-brush-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.22));
+}
+
+.scroll-brush-svg .hand-stroke-main {
+  stroke-width: 3.1;
+}
+
+.scroll-brush-svg .hand-stroke-tip {
+  stroke-width: 3.1;
+}
+
+@keyframes brushBob {
   0%, 100% {
     transform: translateX(-50%) translateY(0);
   }
   50% {
-    transform: translateX(-50%) translateY(5px);
+    transform: translateX(-50%) translateY(6px);
   }
 }
 
@@ -646,7 +715,6 @@ html[data-theme="photography"] .floating-card-meta {
   display: block;
 }
 
-/* Fullscreen Image Lightbox */
 .lightbox-dialog {
   margin: auto;
   max-width: 92vw;
@@ -697,11 +765,23 @@ html[data-theme="photography"] .floating-card-meta {
     padding: 18px 20px 10px;
   }
 
-  .profile-trigger {
+  .profile-Slot {
     right: 20px;
     top: 14px;
+  }
+
+  .profile-trigger {
     width: 46px;
     height: 46px;
+  }
+
+  .profile-hint {
+    width: 82px;
+    height: 48px;
+  }
+
+  .floating-stage {
+    padding: 88px 20px 80px;
   }
 
   .card-cluster {
@@ -724,8 +804,14 @@ html[data-theme="photography"] .floating-card-meta {
 
 @media (prefers-reduced-motion: reduce) {
   .floating-card-inner,
-  .scroll-hint-btn {
+  .scroll-brush-btn {
     animation: none;
+  }
+
+  .hand-stroke-main,
+  .hand-stroke-tip {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 
   .profile-dialog {
