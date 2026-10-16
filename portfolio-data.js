@@ -24,6 +24,11 @@ export const portfolioData = {
         id: "music",
         label: "Music",
         url: "https://atrapthebob.github.io/stats-x9k2p7m/"
+      },
+      {
+        id: "beli",
+        label: "Beli",
+        url: "https://beliapp.co/app/Wilsonleetw"
       }
     ]
   },
@@ -31,103 +36,696 @@ export const portfolioData = {
   engineering: {
     topCards: [
       {
-        id: "eng-01",
-        title: "Project 01",
-        img: "assets/images/engineering/01.svg",
-        angle: -9.5,
-        offsetY: -6,
-        zIndex: 2
-      },
-      {
-        id: "eng-02",
-        title: "Project 02",
-        img: "assets/images/engineering/02.svg",
-        angle: 10.5,
-        offsetY: 16,
-        zIndex: 3
-      },
-      {
-        id: "eng-03",
-        title: "Project 03",
-        img: "assets/images/engineering/03.svg",
-        angle: -0.5,
-        offsetY: -8,
-        zIndex: 1
-      },
-      {
-        id: "eng-04",
-        title: "Project 04",
-        img: "assets/images/engineering/04.svg",
-        angle: 17.5,
-        offsetY: 22,
-        zIndex: 4
-      },
-      {
-        id: "eng-05",
-        title: "Project 05",
-        img: "assets/images/engineering/05.svg",
-        angle: 0.4,
+        id: "eng-cardboard-canoe",
+        type: "project",
+        title: "Cardboard Canoe",
+        description:
+          "For physics class, made cylindrical supports to prevent sides from collapsing in. Used rocks as ballast on the bottom. We earned first place, and the boat was still intact for a third run afterwards.",
+        angle: -6.5,
         offsetY: -4,
-        zIndex: 2
+        zIndex: 2,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/Carboard Canoe/thumbs/IMG_0982.jpeg",
+            src: "assets/Projects/Carboard Canoe/IMG_0982.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Carboard Canoe/thumbs/IMG_0981.jpeg",
+            src: "assets/Projects/Carboard Canoe/IMG_0981.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Carboard Canoe/thumbs/IMG_0985.jpeg",
+            src: "assets/Projects/Carboard Canoe/IMG_0985.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Carboard Canoe/thumbs/IMG_0960.jpeg",
+            src: "assets/Projects/Carboard Canoe/IMG_0960.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Carboard Canoe/thumbs/IMG_0988.jpeg",
+            src: "assets/Projects/Carboard Canoe/IMG_0988.jpeg",
+            width: 406,
+            height: 540
+          }
+        ]
+      },
+      {
+        id: "eng-computer",
+        type: "project",
+        title: "Computer",
+        description:
+          "I build lots of computers for my family and friends, as well as repair them (the open laptop here was thermal throttling because of 5 year old dried thermal paste, I replaced with state-changing thermal pads).",
+        angle: 5.8,
+        offsetY: 12,
+        zIndex: 3,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/Computer/thumbs/IMG_6759.jpeg",
+            src: "assets/Projects/Computer/IMG_6759.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Computer/thumbs/IMG_4490.jpeg",
+            src: "assets/Projects/Computer/IMG_4490.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Computer/thumbs/IMG_0065.jpeg",
+            src: "assets/Projects/Computer/IMG_0065.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Computer/thumbs/IMG_0071.jpeg",
+            src: "assets/Projects/Computer/IMG_0071.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Computer/thumbs/IMG_0367.jpeg",
+            src: "assets/Projects/Computer/IMG_0367.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Computer/thumbs/IMG_6761.jpeg",
+            src: "assets/Projects/Computer/IMG_6761.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Computer/thumbs/IMG_0055.jpg",
+            src: "assets/Projects/Computer/IMG_0055.mp4",
+            width: 304,
+            height: 540
+          }
+        ]
+      },
+      {
+        id: "eng-ftc",
+        type: "project",
+        title: "FTC",
+        description:
+          "Participated as a hardware team member for our school robotics team competing in First Tech Challenge.",
+        angle: -2.2,
+        offsetY: -8,
+        zIndex: 2,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/FTC/thumbs/1000000141.jpeg",
+            src: "assets/Projects/FTC/1000000141.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/FTC/thumbs/1000000140.jpeg",
+            src: "assets/Projects/FTC/1000000140.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/FTC/thumbs/1000000077.jpeg",
+            src: "assets/Projects/FTC/1000000077.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/FTC/thumbs/1000000078.jpeg",
+            src: "assets/Projects/FTC/1000000078.jpeg",
+            width: 406,
+            height: 540
+          }
+        ]
+      },
+      {
+        id: "eng-lego",
+        type: "project",
+        title: "Lego",
+        description:
+          "I've always loved building mechanical contraptions with Legos, particularly crossbows and rubber band guns. My most powerful crossbow could shoot a steel nail through 12 layers of heavy duty cardboard. I also made a lot of everyday functional items.",
+        angle: 7.4,
+        offsetY: 14,
+        zIndex: 4,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2236.jpeg",
+            src: "assets/Projects/Lego/IMG_2236.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2226.jpeg",
+            src: "assets/Projects/Lego/IMG_2226.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_3607.jpeg",
+            src: "assets/Projects/Lego/IMG_3607.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_0867.JPG",
+            src: "assets/Projects/Lego/IMG_0867.JPG",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_0868.JPG",
+            src: "assets/Projects/Lego/IMG_0868.JPG",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_0869.JPG",
+            src: "assets/Projects/Lego/IMG_0869.JPG",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_0870.JPG",
+            src: "assets/Projects/Lego/IMG_0870.JPG",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Lego/thumbs/IMG_0871.JPG",
+            src: "assets/Projects/Lego/IMG_0871.JPG",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/1000000164.jpg",
+            src: "assets/Projects/Lego/1000000164.mp4",
+            width: 540,
+            height: 304
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/1000000052.jpg",
+            src: "assets/Projects/Lego/1000000052.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/1000000256.jpg",
+            src: "assets/Projects/Lego/1000000256.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2213.jpg",
+            src: "assets/Projects/Lego/IMG_2213.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2217.jpg",
+            src: "assets/Projects/Lego/IMG_2217.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2222.jpg",
+            src: "assets/Projects/Lego/IMG_2222.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2225.jpg",
+            src: "assets/Projects/Lego/IMG_2225.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2233.jpg",
+            src: "assets/Projects/Lego/IMG_2233.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_2237.jpg",
+            src: "assets/Projects/Lego/IMG_2237.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Lego/thumbs/IMG_3611.jpg",
+            src: "assets/Projects/Lego/IMG_3611.mp4",
+            width: 304,
+            height: 540
+          }
+        ]
+      },
+      {
+        id: "eng-pull-up-bar",
+        type: "project",
+        title: "Pull-up Bar",
+        description:
+          "I enjoy woodworking in my free time as well, so I built a 4 sided pull-up bar at home as part of a home gym project. I embedded treated 4x4 wood 5 feet into the ground with concrete and a metal sleeve; I used galvanized steel pipes for the bars.",
+        angle: -3.8,
+        offsetY: -4,
+        zIndex: 2,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/Pull Up bar/thumbs/IMG_2606.jpeg",
+            src: "assets/Projects/Pull Up bar/IMG_2606.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Pull Up bar/thumbs/IMG_1586.jpeg",
+            src: "assets/Projects/Pull Up bar/IMG_1586.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Pull Up bar/thumbs/IMG_1584.jpeg",
+            src: "assets/Projects/Pull Up bar/IMG_1584.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Pull Up bar/thumbs/IMG_1576.jpeg",
+            src: "assets/Projects/Pull Up bar/IMG_1576.jpeg",
+            width: 406,
+            height: 540
+          }
+        ]
       }
     ],
 
-    floatingTexts: [
-      {
-        id: "eng-text-1",
-        text: "Text here",
-        angle: -2.4,
-        offsetY: 0
-      },
-      {
-        id: "eng-text-2",
-        text: "text here",
-        angle: -3.2,
-        offsetY: 14
-      }
-    ],
+    floatingTexts: [],
 
     bottomCards: [
       {
-        id: "eng-06",
-        title: "Project 06",
-        img: "assets/images/engineering/06.svg",
-        angle: -4.2,
-        offsetY: 12,
-        zIndex: 2
+        id: "eng-race-sim",
+        type: "project",
+        title: "Race Sim",
+        description:
+          "Prebuilt race sim = expensive, temu and used parts cobbled together = cheap. I also built a custom wind simulator using old computer fans and a 3d printed housing that syncs to the in-game speed of the car.",
+        angle: -4.6,
+        offsetY: 10,
+        zIndex: 3,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_2012.jpeg",
+            src: "assets/Projects/Race sim/IMG_2012.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_2008.jpeg",
+            src: "assets/Projects/Race sim/IMG_2008.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_2009.jpeg",
+            src: "assets/Projects/Race sim/IMG_2009.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_2010.jpeg",
+            src: "assets/Projects/Race sim/IMG_2010.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_2011.jpeg",
+            src: "assets/Projects/Race sim/IMG_2011.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_2013.jpeg",
+            src: "assets/Projects/Race sim/IMG_2013.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1933.jpeg",
+            src: "assets/Projects/Race sim/IMG_1933.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1868.jpeg",
+            src: "assets/Projects/Race sim/IMG_1868.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1869.jpeg",
+            src: "assets/Projects/Race sim/IMG_1869.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1870.jpeg",
+            src: "assets/Projects/Race sim/IMG_1870.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1871.jpeg",
+            src: "assets/Projects/Race sim/IMG_1871.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1873.jpeg",
+            src: "assets/Projects/Race sim/IMG_1873.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1874.jpeg",
+            src: "assets/Projects/Race sim/IMG_1874.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1876.jpeg",
+            src: "assets/Projects/Race sim/IMG_1876.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1877.jpeg",
+            src: "assets/Projects/Race sim/IMG_1877.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1878.jpeg",
+            src: "assets/Projects/Race sim/IMG_1878.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1879.jpeg",
+            src: "assets/Projects/Race sim/IMG_1879.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1880.jpeg",
+            src: "assets/Projects/Race sim/IMG_1880.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1881.jpeg",
+            src: "assets/Projects/Race sim/IMG_1881.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1882.jpeg",
+            src: "assets/Projects/Race sim/IMG_1882.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1905.jpeg",
+            src: "assets/Projects/Race sim/IMG_1905.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1906.jpeg",
+            src: "assets/Projects/Race sim/IMG_1906.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1908.jpeg",
+            src: "assets/Projects/Race sim/IMG_1908.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1909.jpeg",
+            src: "assets/Projects/Race sim/IMG_1909.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1911.jpeg",
+            src: "assets/Projects/Race sim/IMG_1911.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1912.jpeg",
+            src: "assets/Projects/Race sim/IMG_1912.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1913.JPG",
+            src: "assets/Projects/Race sim/IMG_1913.JPG",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1914.jpeg",
+            src: "assets/Projects/Race sim/IMG_1914.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1915.jpeg",
+            src: "assets/Projects/Race sim/IMG_1915.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1916.jpeg",
+            src: "assets/Projects/Race sim/IMG_1916.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1917.jpeg",
+            src: "assets/Projects/Race sim/IMG_1917.jpeg",
+            width: 540,
+            height: 406
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1918.JPG",
+            src: "assets/Projects/Race sim/IMG_1918.JPG",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1919.jpeg",
+            src: "assets/Projects/Race sim/IMG_1919.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1907.jpg",
+            src: "assets/Projects/Race sim/IMG_1907.mp4",
+            width: 304,
+            height: 540
+          },
+          {
+            type: "video",
+            thumb: "assets/Projects/Race sim/thumbs/IMG_1972.jpg",
+            src: "assets/Projects/Race sim/IMG_1972.mp4",
+            width: 304,
+            height: 540
+          }
+        ]
       },
       {
-        id: "eng-07",
-        title: "Project 07",
-        img: "assets/images/engineering/07.svg",
-        angle: 13.5,
-        offsetY: -4,
-        zIndex: 3
-      },
-      {
-        id: "eng-08",
-        title: "Project 08",
-        img: "assets/images/engineering/08.svg",
-        angle: 1.8,
-        offsetY: 18,
-        size: "compact",
-        zIndex: 5
-      },
-      {
-        id: "eng-09",
-        title: "Project 09",
-        img: "assets/images/engineering/09.svg",
-        angle: -0.6,
+        id: "eng-warhammer",
+        type: "project",
+        title: "Warhammer",
+        description:
+          "Hobby project with friends, we built a 9x9 ft battlefield in 9 separate pieces, each with unique terrain. We also ruined my friend's grill by cooking dirt on it.",
+        angle: 6.4,
         offsetY: -6,
-        zIndex: 2
+        zIndex: 4,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/Projects/WarHammer/thumbs/senior_IMG_3596.jpg",
+            src: "assets/Projects/WarHammer/senior_IMG_3596.jpg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/WarHammer/thumbs/IMG_1579.jpeg",
+            src: "assets/Projects/WarHammer/IMG_1579.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/WarHammer/thumbs/IMG_1493.jpeg",
+            src: "assets/Projects/WarHammer/IMG_1493.jpeg",
+            width: 406,
+            height: 540
+          },
+          {
+            type: "image",
+            thumb: "assets/Projects/WarHammer/thumbs/IMG_1494.jpeg",
+            src: "assets/Projects/WarHammer/IMG_1494.jpeg",
+            width: 406,
+            height: 540
+          }
+        ]
       },
       {
-        id: "eng-10",
-        title: "Project 10",
-        img: "assets/images/engineering/10.svg",
-        angle: 19.5,
-        offsetY: 24,
-        zIndex: 4
+        id: "eng-go-kart",
+        type: "project",
+        title: "Go Kart",
+        description: "Photos coming soon — add photos to assets/Projects/Go kart.",
+        angle: -2.8,
+        offsetY: 12,
+        zIndex: 2,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/images/engineering/go-kart.svg",
+            src: "assets/images/engineering/go-kart.svg",
+            width: 600,
+            height: 600
+          },
+          {
+            type: "image",
+            thumb: "assets/images/engineering/placeholder-back.svg",
+            src: "assets/images/engineering/placeholder-back.svg",
+            width: 600,
+            height: 600
+          },
+          {
+            type: "image",
+            thumb: "assets/images/engineering/placeholder-back.svg",
+            src: "assets/images/engineering/placeholder-back.svg",
+            width: 600,
+            height: 600
+          }
+        ]
+      },
+      {
+        id: "eng-shed",
+        type: "project",
+        title: "Shed",
+        description: "Photos coming soon — add photos to assets/Projects/Shed.",
+        angle: 5.2,
+        offsetY: -4,
+        zIndex: 3,
+        items: [
+          {
+            type: "image",
+            thumb: "assets/images/engineering/shed.svg",
+            src: "assets/images/engineering/shed.svg",
+            width: 600,
+            height: 600
+          },
+          {
+            type: "image",
+            thumb: "assets/images/engineering/placeholder-back.svg",
+            src: "assets/images/engineering/placeholder-back.svg",
+            width: 600,
+            height: 600
+          },
+          {
+            type: "image",
+            thumb: "assets/images/engineering/placeholder-back.svg",
+            src: "assets/images/engineering/placeholder-back.svg",
+            width: 600,
+            height: 600
+          }
+        ]
       }
     ]
   },

@@ -6,13 +6,13 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta
     http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; media-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';"
   />
   <title>Wilson Lee</title>
   <meta name="description" content="Wilson Lee portfolio: engineering projects and photography." />
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=9" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=10" />
   <link rel="preload" as="image" href="assets/images/profile/wilson-lee.jpg" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
   <!-- Fullscreen Welcome / Loading Intro Screen -->
@@ -174,6 +174,26 @@
     </div>
   </dialog>
 
+  <dialog id="projectDialog" class="project-dialog" closedby="any" aria-labelledby="projectDialogTitle">
+    <div class="project-dialog-inner">
+      <button
+        type="button"
+        class="project-dialog-close"
+        id="projectCloseBtn"
+        aria-label="Close project view"
+      >
+        &times;
+      </button>
+
+      <header class="project-dialog-header">
+        <h2 id="projectDialogTitle" class="project-dialog-title"></h2>
+        <p id="projectDialogDesc" class="project-dialog-description"></p>
+      </header>
+
+      <div id="projectDialogGrid" class="card-cluster project-dialog-cluster" aria-label="Project media"></div>
+    </div>
+  </dialog>
+
   <dialog id="lightboxDialog" class="lightbox-dialog" closedby="any" aria-label="Full size image view">
     <button
       type="button"
@@ -186,39 +206,20 @@
     <img id="lightboxImg" class="lightbox-img" src="" alt="" />
   </dialog>
 
-  <!-- Hand-drawn Unmute Hint (appears once in center of screen when video autoplays) -->
-  <aside class="unmute-hint is-hidden" id="unmuteHint" aria-label="Audio hint">
-    <div class="unmute-hint-card" role="button" tabindex="0">
-      <svg class="unmute-hint-svg" viewBox="0 0 54 44" fill="none">
-        <path
-          class="hand-stroke-main"
-          pathLength="1"
-          d="M 6 15 L 14 15 L 23 7 L 23 37 L 14 29 L 6 29 Z"
-        />
-        <path
-          class="hand-stroke-tip"
-          pathLength="1"
-          d="M 30 14 C 34 18, 34 26, 30 30 M 37 8 C 44 16, 44 28, 37 36"
-        />
-      </svg>
-      <span class="unmute-hint-text">unmute video</span>
-    </div>
-  </aside>
-
   <!-- Bob Ross Easter Egg (bottom-right corner hot zone, no outline, circular photo with hand-drawn text) -->
   <aside class="bob-ross-zone" id="bobRossZone" aria-label="Easter egg">
     <div class="bob-ross-card">
       <img
-        src="assets/images/bob-ross.jpg?v=9"
+        src="assets/images/bob-ross.jpg?v=10"
         alt="Bob Ross"
         width="92"
         height="92"
         class="bob-ross-img"
       />
       <span class="bob-ross-caption" aria-label="i like bob ross">
-        <svg class="bob-ross-caption-svg" viewBox="0 0 132 24" fill="none">
+        <svg class="bob-ross-caption-svg" viewBox="0 0 150 24" fill="none">
           <path
-            d="M 6 12 L 6 19 C 6 21, 8 21, 9 20 M 6 7 A 0.8 0.8 0 1 1 6 6.8 M 18 4 L 18 19 C 18 21, 20 21, 21 20 M 27 12 L 27 19 C 27 21, 29 21, 30 20 M 27 7 A 0.8 0.8 0 1 1 27 6.8 M 36 4 L 36 20 M 43 12 L 37 16 L 43 21 M 48 16 L 55 16 C 55 13, 52 12, 50 13 C 47 15, 47 19, 50 21 C 53 22, 55 20, 56 19 M 66 4 L 66 20 C 68 21, 71 21, 73 19 C 75 17, 75 14, 73 13 C 70 12, 67 13, 66 16 M 85 16 C 85 13, 81 12, 79 14 C 77 17, 78 20, 81 21 C 84 21, 85 18, 85 16 M 92 4 L 92 20 C 94 21, 97 21, 99 19 C 101 17, 101 14, 99 13 C 96 12, 93 13, 92 16 M 106 13 L 106 20 M 106 15 C 108 13, 110 13, 112 14 M 119 14 C 117 12, 115 13, 115 15 C 115 18, 120 17, 120 19 C 120 21, 117 21, 115 20 M 127 14 C 125 12, 123 13, 123 15 C 123 18, 128 17, 128 19 C 128 21, 125 21, 123 20"
+            d="M 6 12 L 6 19 C 6 21, 8 21, 9 20 M 6 7 A 0.8 0.8 0 1 1 6 6.8 M 18 4 L 18 19 C 18 21, 20 21, 21 20 M 27 12 L 27 19 C 27 21, 29 21, 30 20 M 27 7 A 0.8 0.8 0 1 1 27 6.8 M 36 4 L 36 20 M 43 12 L 37 16 L 43 21 M 48 16 L 55 16 C 55 13, 52 12, 50 13 C 47 15, 47 19, 50 21 C 53 22, 55 20, 56 19 M 66 4 L 66 20 C 68 21, 71 21, 73 19 C 75 17, 75 14, 73 13 C 70 12, 67 13, 66 16 M 85 16 C 85 13, 81 12, 79 14 C 77 17, 78 20, 81 21 C 84 21, 85 18, 85 16 M 88 4 L 88 20 C 90 21, 93 21, 95 19 C 97 17, 97 14, 95 13 C 92 12, 89 13, 88 16 M 108 13 L 108 20 M 108 15 C 110 13, 112 13, 114 14 M 125 16 C 125 13, 121 12, 119 14 C 117 17, 118 20, 121 21 C 124 21, 125 18, 125 16 M 133 14 C 131 12, 129 13, 129 15 C 129 18, 134 17, 134 19 C 134 21, 131 21, 129 20 M 142 14 C 140 12, 138 13, 138 15 C 138 18, 143 17, 143 19 C 143 21, 140 21, 138 20"
             stroke="currentColor"
             stroke-width="1.8"
             stroke-linecap="round"
@@ -229,6 +230,6 @@
     </div>
   </aside>
 
-  <script type="module" src="app.js?v=9"></script>
+  <script type="module" src="app.js?v=10"></script>
 </body>
 </html>

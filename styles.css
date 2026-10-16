@@ -355,10 +355,10 @@ body {
 
 .card-cluster {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
-  row-gap: 36px;
+  row-gap: 44px;
   padding: 16px 8px;
 }
 
@@ -383,6 +383,109 @@ body {
 .floating-card.is-video-card {
   width: clamp(210px, 21vw, 284px);
   aspect-ratio: 16 / 10;
+}
+
+/* Stacked Project Pile on Engineering Stage */
+.floating-card.is-project-pile {
+  width: clamp(172px, 17vw, 232px);
+  aspect-ratio: auto;
+  margin: 0 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.pile-stack {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.06;
+  animation: subtleCardFloat var(--float-duration, 7s) ease-in-out infinite alternate;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.pile-card-top {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  background: var(--card-bg);
+  border: 1.5px solid var(--surface-border);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12), 0 0 0 2px #ffffff;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.36s ease,
+    transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pile-card-back {
+  position: absolute;
+  inset: 0;
+  background: var(--card-bg);
+  border: 1.5px solid var(--surface-border);
+  border-radius: 2px;
+  overflow: hidden;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09), 0 0 0 2px #ffffff;
+  transition:
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    box-shadow 0.36s ease;
+}
+
+.pile-card-back-1 {
+  z-index: 3;
+  transform: translate3d(-11px, -8px, 0) rotate(-7.5deg) scale(0.98);
+}
+
+.pile-card-back-2 {
+  z-index: 2;
+  transform: translate3d(12px, -6px, 0) rotate(8.2deg) scale(0.97);
+}
+
+.pile-card-back-3 {
+  z-index: 1;
+  transform: translate3d(-8px, 10px, 0) rotate(5.6deg) scale(0.96);
+}
+
+.floating-card.is-project-pile:hover .pile-card-top,
+.floating-card.is-project-pile:focus-visible .pile-card-top {
+  border-color: var(--surface-border-hover);
+  box-shadow: var(--card-shadow-hover), 0 0 0 2px #ffffff;
+}
+
+.floating-card.is-project-pile:hover .pile-card-back-1,
+.floating-card.is-project-pile:focus-visible .pile-card-back-1 {
+  border-color: rgba(0, 0, 0, 0.36);
+  transform: translate3d(-18px, -13px, 0) rotate(-11.5deg) scale(0.99);
+}
+
+.floating-card.is-project-pile:hover .pile-card-back-2,
+.floating-card.is-project-pile:focus-visible .pile-card-back-2 {
+  border-color: rgba(0, 0, 0, 0.36);
+  transform: translate3d(19px, -10px, 0) rotate(12.4deg) scale(0.98);
+}
+
+.floating-card.is-project-pile:hover .pile-card-back-3,
+.floating-card.is-project-pile:focus-visible .pile-card-back-3 {
+  border-color: rgba(0, 0, 0, 0.36);
+  transform: translate3d(-13px, 15px, 0) rotate(8.6deg) scale(0.97);
+}
+
+.project-pile-title {
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.3;
+  position: relative;
+  z-index: 5;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 4px;
 }
 
 .floating-card:hover,
@@ -452,6 +555,7 @@ body {
 }
 
 .floating-card.is-video-card:hover .video-expand-btn,
+.floating-card.is-local-video-card:hover .video-expand-btn,
 .video-expand-btn:focus-visible {
   opacity: 1;
 }
@@ -535,6 +639,10 @@ html[data-theme="photography"] .floating-card-meta {
   gap: 44px;
   padding: 16px 4vw;
   flex-wrap: wrap;
+}
+
+.floating-text-band:empty {
+  display: none;
 }
 
 .floating-text-item {
@@ -746,11 +854,18 @@ html[data-theme="photography"] .scroll-brush-svg {
   }
 }
 
-.profile-dialog {
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.profile-dialog,
+.project-dialog {
   margin: auto;
-  width: min(640px, 74vw);
-  min-height: min(480px, 66vh);
-  max-height: 86vh;
   background: var(--dialog-bg);
   color: var(--text-primary);
   border: 1px solid var(--dialog-border);
@@ -767,7 +882,19 @@ html[data-theme="photography"] .scroll-brush-svg {
   transition-behavior: allow-discrete;
 }
 
-.profile-dialog::backdrop {
+.profile-dialog {
+  width: min(640px, 74vw);
+  min-height: min(480px, 66vh);
+  max-height: 86vh;
+}
+
+.project-dialog {
+  width: min(1240px, 92vw);
+  max-height: 88vh;
+}
+
+.profile-dialog::backdrop,
+.project-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
@@ -777,7 +904,7 @@ html[data-theme="photography"] .scroll-brush-svg {
   transition-behavior: allow-discrete;
 }
 
-:is(dialog.profile-dialog[open]):where(:not([data-closing])) {
+:is(dialog.profile-dialog[open], dialog.project-dialog[open]):where(:not([data-closing])) {
   opacity: 1;
   transform: scale(1);
 
@@ -787,9 +914,9 @@ html[data-theme="photography"] .scroll-brush-svg {
   }
 
   &::backdrop {
-    background-color: rgba(0, 0, 0, 0.32);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.36);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 
     @starting-style {
       background-color: rgba(0, 0, 0, 0);
@@ -809,17 +936,19 @@ html[data-theme="photography"] .scroll-brush-svg {
   gap: 24px;
 }
 
-.profile-dialog-close {
+.profile-dialog-close,
+.project-dialog-close {
   position: absolute;
   top: 16px;
   right: 18px;
-  width: 34px;
-  height: 34px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid transparent;
   background: transparent;
   color: var(--text-secondary);
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -828,9 +957,64 @@ html[data-theme="photography"] .scroll-brush-svg {
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.profile-dialog-close:hover {
+.profile-dialog-close:hover,
+.project-dialog-close:hover {
   color: var(--text-primary);
   border-color: var(--surface-border);
+}
+
+.project-dialog-inner {
+  position: relative;
+  padding: 44px 40px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.project-dialog-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  max-width: 720px;
+  padding: 0 24px;
+}
+
+.project-dialog-title {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 450;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.project-dialog-description {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.project-dialog-cluster {
+  width: 100%;
+  row-gap: 38px;
+  padding: 20px 12px 12px;
+}
+
+.project-dialog-cluster .floating-card {
+  animation: fanOutProjectCard 0.42s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--fan-delay, 0s);
+}
+
+@keyframes fanOutProjectCard {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) rotate(0deg) scale(0.84);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, var(--offset-y, 0px), 0) rotate(var(--base-angle, 0deg)) scale(1);
+  }
 }
 
 .profile-dialog-name {
@@ -911,7 +1095,7 @@ html[data-theme="photography"] .scroll-brush-svg {
   background: transparent;
   border: none;
   padding: 0;
-  overflow: visible;
+  overflow: auto;
 }
 
 .lightbox-dialog::backdrop {
@@ -947,71 +1131,6 @@ html[data-theme="photography"] .scroll-brush-svg {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Hand-Drawn Center Unmute Hint for Autoplaying Video */
-.unmute-hint {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.92);
-  z-index: 70;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.unmute-hint.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.unmute-hint.is-hidden {
-  display: none;
-}
-
-.unmute-hint-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--dialog-bg);
-  color: var(--text-primary);
-  border: 1.5px solid var(--text-primary);
-  border-radius: 999px;
-  padding: 11px 24px;
-  cursor: pointer;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.unmute-hint-card:hover {
-  transform: scale(1.04);
-}
-
-.unmute-hint-svg {
-  width: 28px;
-  height: 24px;
-  overflow: visible;
-  flex-shrink: 0;
-}
-
-.unmute-hint-svg .hand-stroke-main {
-  stroke: var(--text-primary);
-  stroke-width: 3.2;
-}
-
-.unmute-hint-svg .hand-stroke-tip {
-  stroke: var(--text-primary);
-  stroke-width: 3.2;
-}
-
-.unmute-hint-text {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
 }
 
 /* Bob Ross Easter Egg (Bottom-Right Corner, Circular, No Outline, Hand-Drawn Text) */
@@ -1075,7 +1194,7 @@ html[data-theme="photography"] .bob-ross-caption {
 }
 
 .bob-ross-caption-svg {
-  width: 124px;
+  width: 140px;
   height: 22px;
   display: block;
   overflow: visible;
@@ -1114,17 +1233,29 @@ html[data-theme="photography"] .bob-ross-caption {
     width: clamp(145px, 28vw, 196px);
   }
 
+  .floating-card.is-project-pile {
+    margin: 0 8px;
+    width: clamp(150px, 38vw, 204px);
+  }
+
   .profile-dialog {
     width: min(600px, 86vw);
   }
 
-  .profile-dialog-inner {
-    padding: 36px 24px 36px;
+  .project-dialog {
+    width: 94vw;
+  }
+
+  .profile-dialog-inner,
+  .project-dialog-inner {
+    padding: 36px 20px 36px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .floating-card-inner,
+  .pile-stack,
+  .project-dialog-cluster .floating-card,
   .scroll-brush-btn,
   .intro-scroll-hint {
     animation: none;
@@ -1145,13 +1276,15 @@ html[data-theme="photography"] .bob-ross-caption {
     transform: none;
   }
 
-  .profile-dialog {
+  .profile-dialog,
+  .project-dialog {
     transform: none;
     transition-duration: 0.1s;
   }
 
   @starting-style {
-    dialog.profile-dialog[open] {
+    dialog.profile-dialog[open],
+    dialog.project-dialog[open] {
       transform: none;
     }
   }

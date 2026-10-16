@@ -1,4 +1,4 @@
-import { portfolioData } from "./portfolio-data.js?v=9";
+import { portfolioData } from "./portfolio-data.js?v=10";
 
 const htmlEl = document.documentElement;
 const pillSwitch = document.querySelector(".pill-switch");
@@ -18,32 +18,43 @@ const profileDialogPhoto = document.getElementById("profileDialogPhoto");
 const profileDialogDesc = document.getElementById("profileDialogDesc");
 const profileDialogLinks = document.getElementById("profileDialogLinks");
 
+const projectDialog = document.getElementById("projectDialog");
+const projectCloseBtn = document.getElementById("projectCloseBtn");
+const projectDialogTitle = document.getElementById("projectDialogTitle");
+const projectDialogDesc = document.getElementById("projectDialogDesc");
+const projectDialogGrid = document.getElementById("projectDialogGrid");
+
 const lightboxDialog = document.getElementById("lightboxDialog");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
 const scrollHintBtn = document.getElementById("scrollHintBtn");
 const introScreen = document.getElementById("introScreen");
 const bobRossZone = document.getElementById("bobRossZone");
-const unmuteHint = document.getElementById("unmuteHint");
 
 let currentSection = "engineering";
 let switchTimer = null;
+let activeMediaObserver = null;
 
 // Sequential tutorial state machine: "photo" -> "scroll" -> "profile" -> "done"
 let tutorialState = "photo";
-
-let hasShownUnmuteHint = false;
-let activeVideoIframe = null;
 
 const preloadedThumbs = [];
 const preloadedHighRes = [];
 const svgParser = new DOMParser();
 
+const supportsLazyMedia =
+  typeof HTMLMediaElement !== "undefined" &&
+  Object.hasOwn(HTMLMediaElement.prototype, "loading");
+
+const EXPANDED_ANGLES = [-7.2, 6.4, -2.8, 8.6, -5.2, 4.4, -8.4, 7.2, -3.4, 5.8];
+const EXPANDED_OFFSETS_Y = [-6, 10, -4, 14, 6, -8, 12, -5, 8, -4];
+
 const LINK_ICONS = {
   linkedin: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>`,
   instagram: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
   github: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`,
-  music: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`
+  music: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  beli: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v20M21 2v6a3 3 0 0 1-3 3M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20"/></svg>`
 };
 
 const EXPAND_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`;
@@ -75,47 +86,6 @@ function sendYouTubeCommand(iframe, func, args = []) {
     JSON.stringify({ event: "command", func, args }),
     "https://www.youtube.com"
   );
-}
-
-function triggerUnmuteHint(iframe) {
-  if (hasShownUnmuteHint || !unmuteHint) return;
-  hasShownUnmuteHint = true;
-  activeVideoIframe = iframe;
-  unmuteHint.classList.remove("is-hidden");
-  void unmuteHint.offsetWidth;
-  unmuteHint.classList.add("is-visible");
-
-  setTimeout(() => {
-    dismissUnmuteHint();
-  }, 6500);
-}
-
-function dismissUnmuteHint() {
-  if (!unmuteHint || !unmuteHint.classList.contains("is-visible")) return;
-  unmuteHint.classList.remove("is-visible");
-  setTimeout(() => {
-    unmuteHint.classList.add("is-hidden");
-  }, 320);
-}
-
-if (unmuteHint) {
-  unmuteHint.addEventListener("click", () => {
-    if (activeVideoIframe) {
-      sendYouTubeCommand(activeVideoIframe, "unMute");
-      sendYouTubeCommand(activeVideoIframe, "setVolume", [100]);
-    }
-    dismissUnmuteHint();
-  });
-  unmuteHint.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      if (activeVideoIframe) {
-        sendYouTubeCommand(activeVideoIframe, "unMute");
-        sendYouTubeCommand(activeVideoIframe, "setVolume", [100]);
-      }
-      dismissUnmuteHint();
-    }
-  });
 }
 
 function syncTutorialUI() {
@@ -166,6 +136,293 @@ function openLightbox(src, altText) {
   if (!lightboxDialog.open) {
     lightboxDialog.showModal();
   }
+}
+
+function cleanupProjectDialogMedia() {
+  if (activeMediaObserver) {
+    activeMediaObserver.disconnect();
+    activeMediaObserver = null;
+  }
+  if (!projectDialogGrid) return;
+  const videos = projectDialogGrid.querySelectorAll("video");
+  for (const video of videos) {
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+  }
+}
+
+function setupLazyVideosInDialog(containerEl) {
+  if (supportsLazyMedia || !containerEl) return;
+
+  const lazyVideos = containerEl.querySelectorAll('video[loading="lazy"]');
+  if (lazyVideos.length === 0) return;
+
+  activeMediaObserver = new IntersectionObserver(
+    (entries, observer) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const media = entry.target;
+
+        if (media.dataset.poster) {
+          media.poster = media.dataset.poster;
+          delete media.dataset.poster;
+        }
+        if (media.dataset.preload) {
+          media.preload = media.dataset.preload;
+          delete media.dataset.preload;
+        }
+        if (media.dataset.src) {
+          media.src = media.dataset.src;
+          delete media.dataset.src;
+        }
+
+        media.load();
+        observer.unobserve(media);
+      }
+    },
+    {
+      root: projectDialog,
+      rootMargin: "220px 0px"
+    }
+  );
+
+  for (const media of lazyVideos) {
+    if (media.hasAttribute("poster")) {
+      media.dataset.poster = media.getAttribute("poster");
+      media.removeAttribute("poster");
+    }
+    if (media.hasAttribute("preload") && media.getAttribute("preload") !== "none") {
+      media.dataset.preload = media.getAttribute("preload");
+    }
+    if (media.hasAttribute("src")) {
+      media.dataset.src = media.getAttribute("src");
+      media.removeAttribute("src");
+    }
+    media.preload = "none";
+    activeMediaObserver.observe(media);
+  }
+}
+
+function createExpandedMediaCard(item, idx, projectTitle) {
+  const article = document.createElement("article");
+  const isLocalVideo = item.type === "video";
+  article.className = `floating-card${isLocalVideo ? " is-local-video-card" : ""}`;
+  article.tabIndex = 0;
+
+  const baseAngle = EXPANDED_ANGLES[idx % EXPANDED_ANGLES.length];
+  const hoverAngle = getHoverAngle(baseAngle);
+  const offsetY = EXPANDED_OFFSETS_Y[idx % EXPANDED_OFFSETS_Y.length];
+  const floatDuration = (6.2 + (idx % 4) * 0.85).toFixed(2);
+  const floatDelay = ((idx * 0.45) % 2.5).toFixed(2);
+  const fanDelay = Math.min(idx * 0.03, 0.36).toFixed(2);
+
+  article.style.setProperty("--base-angle", `${baseAngle}deg`);
+  article.style.setProperty("--hover-angle", `${hoverAngle}deg`);
+  article.style.setProperty("--offset-y", `${offsetY}px`);
+  article.style.setProperty("--base-z", `${(idx % 3) + 1}`);
+  article.style.setProperty("--float-duration", `${floatDuration}s`);
+  article.style.setProperty("--float-delay", `-${floatDelay}s`);
+  article.style.setProperty("--fan-delay", `${fanDelay}s`);
+
+  const inner = document.createElement("div");
+  inner.className = "floating-card-inner";
+
+  if (isLocalVideo) {
+    const video = document.createElement("video");
+    video.className = "floating-card-video";
+    video.controls = true;
+    video.playsInline = true;
+    video.width = item.width || 304;
+    video.height = item.height || 540;
+    video.poster = item.thumb;
+    video.preload = "metadata";
+    video.setAttribute("loading", "lazy");
+    video.src = item.src;
+
+    video.addEventListener("play", () => {
+      if (!projectDialogGrid) return;
+      for (const other of projectDialogGrid.querySelectorAll("video")) {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      }
+    });
+
+    const expandBtn = document.createElement("button");
+    expandBtn.type = "button";
+    expandBtn.className = "video-expand-btn";
+    expandBtn.setAttribute("aria-label", "Expand video full screen");
+    expandBtn.title = "Full screen";
+    const expandIconNode = parseSvgNode(EXPAND_ICON);
+    if (expandIconNode) {
+      expandBtn.appendChild(expandIconNode);
+    }
+
+    expandBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (video.dataset.src) {
+        video.src = video.dataset.src;
+        delete video.dataset.src;
+        video.load();
+      }
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      } else if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+      }
+      video.play().catch(() => {});
+    });
+
+    inner.append(video, expandBtn);
+  } else {
+    const img = document.createElement("img");
+    img.className = "floating-card-img";
+    img.alt = `${projectTitle} photo ${idx + 1}`;
+    img.width = item.width || 540;
+    img.height = item.height || 540;
+    img.decoding = "async";
+    if (idx >= 4) {
+      img.loading = "lazy";
+    }
+    img.src = item.thumb || item.src;
+    inner.appendChild(img);
+
+    const openFull = () => {
+      openLightbox(item.src || item.thumb, `${projectTitle} photo ${idx + 1}`);
+    };
+    article.addEventListener("click", openFull);
+    article.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openFull();
+      }
+    });
+  }
+
+  article.appendChild(inner);
+  return article;
+}
+
+function openProjectDialog(project) {
+  advanceTutorial("photo");
+  if (!projectDialog || !projectDialogGrid) return;
+
+  cleanupProjectDialogMedia();
+
+  projectDialogTitle.textContent = project.title || "";
+  projectDialogDesc.textContent = project.description || "";
+
+  const frag = document.createDocumentFragment();
+  (project.items || []).forEach((item, idx) => {
+    frag.appendChild(createExpandedMediaCard(item, idx, project.title));
+  });
+  projectDialogGrid.replaceChildren(frag);
+
+  if (!projectDialog.open) {
+    projectDialog.showModal();
+  }
+  projectDialog.scrollTop = 0;
+
+  setupLazyVideosInDialog(projectDialogGrid);
+}
+
+function createProjectPileElement(project, index) {
+  const article = document.createElement("article");
+  article.className = "floating-card is-project-pile";
+  article.tabIndex = 0;
+  article.setAttribute("role", "button");
+  article.setAttribute("aria-haspopup", "dialog");
+  article.setAttribute("aria-label", `Expand ${project.title} project`);
+
+  const hoverAngle = getHoverAngle(project.angle);
+  const floatDuration = (6.2 + (index % 4) * 0.85).toFixed(2);
+  const floatDelay = ((index * 0.45) % 2.5).toFixed(2);
+
+  article.style.setProperty("--base-angle", `${project.angle}deg`);
+  article.style.setProperty("--hover-angle", `${hoverAngle}deg`);
+  article.style.setProperty("--offset-y", `${project.offsetY || 0}px`);
+  article.style.setProperty("--base-z", `${project.zIndex || 1}`);
+  article.style.setProperty("--float-duration", `${floatDuration}s`);
+  article.style.setProperty("--float-delay", `-${floatDelay}s`);
+
+  if (index === 0 && tutorialState === "photo") {
+    const hintWrap = document.createElement("div");
+    hintWrap.className = "hand-hint photo-hint";
+    hintWrap.id = "photoHint";
+    const hintSvgNode = parseSvgNode(PHOTO_HINT_SVG);
+    if (hintSvgNode) {
+      hintWrap.appendChild(hintSvgNode);
+    }
+    article.appendChild(hintWrap);
+  }
+
+  const stack = document.createElement("div");
+  stack.className = "pile-stack";
+
+  const items = project.items || [];
+  const backingItems = items.slice(1, 4);
+
+  for (let i = backingItems.length - 1; i >= 0; i--) {
+    const backItem = backingItems[i];
+    const backCard = document.createElement("div");
+    backCard.className = `pile-card-back pile-card-back-${i + 1}`;
+    backCard.setAttribute("aria-hidden", "true");
+
+    const backImg = document.createElement("img");
+    backImg.className = "floating-card-img";
+    backImg.src = backItem.thumb || backItem.src;
+    backImg.alt = "";
+    backImg.width = backItem.width || 400;
+    backImg.height = backItem.height || 400;
+    backImg.decoding = "async";
+    backImg.fetchPriority = "low";
+
+    backCard.appendChild(backImg);
+    stack.appendChild(backCard);
+  }
+
+  const topItem = items[0];
+  const topCard = document.createElement("div");
+  topCard.className = "pile-card-top";
+
+  if (topItem) {
+    const topImg = document.createElement("img");
+    topImg.className = "floating-card-img";
+    topImg.src = topItem.thumb || topItem.src;
+    topImg.alt = project.title || "";
+    topImg.width = topItem.width || 540;
+    topImg.height = topItem.height || 540;
+    topImg.decoding = "async";
+    if (index < 2) {
+      topImg.fetchPriority = "high";
+    } else if (index >= 5) {
+      topImg.loading = "lazy";
+    }
+    topCard.appendChild(topImg);
+  }
+
+  stack.appendChild(topCard);
+  article.appendChild(stack);
+
+  const titleEl = document.createElement("h3");
+  titleEl.className = "project-pile-title";
+  titleEl.textContent = project.title;
+  article.appendChild(titleEl);
+
+  article.addEventListener("click", () => {
+    openProjectDialog(project);
+  });
+  article.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openProjectDialog(project);
+    }
+  });
+
+  return article;
 }
 
 function preloadPhotographyThumbnails() {
@@ -227,6 +484,10 @@ function attachProgressiveImage(imgEl, card) {
 }
 
 function createCardElement(card, index) {
+  if (card.type === "project") {
+    return createProjectPileElement(card, index);
+  }
+
   const article = document.createElement("article");
   const isVideo = card.type === "youtube" && /^[a-zA-Z0-9_-]{6,20}$/.test(card.videoId);
   article.className = `floating-card${card.size === "compact" ? " is-compact" : ""}${isVideo ? " is-video-card" : ""}`;
@@ -279,7 +540,6 @@ function createCardElement(card, index) {
 
     expandBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      dismissUnmuteHint();
       const target = inner.requestFullscreen
         ? inner.requestFullscreen()
         : inner.webkitRequestFullscreen
@@ -293,12 +553,10 @@ function createCardElement(card, index) {
 
     article.addEventListener("mouseenter", () => {
       sendYouTubeCommand(iframe, "playVideo");
-      triggerUnmuteHint(iframe);
     });
 
     article.addEventListener("focusin", () => {
       sendYouTubeCommand(iframe, "playVideo");
-      triggerUnmuteHint(iframe);
     });
 
     article.addEventListener("mouseleave", () => {
@@ -315,9 +573,9 @@ function createCardElement(card, index) {
     img.width = 600;
     img.height = 600;
     img.decoding = "async";
-    if (index < 6) {
+    if (index < 2) {
       img.fetchPriority = "high";
-    } else {
+    } else if (index >= 6) {
       img.loading = "lazy";
     }
     attachProgressiveImage(img, card);
@@ -402,7 +660,7 @@ function renderSection(sectionKey) {
   topCluster.replaceChildren(topFrag);
 
   const textFrag = document.createDocumentFragment();
-  sectionData.floatingTexts.forEach((item) => {
+  (sectionData.floatingTexts || []).forEach((item) => {
     textFrag.appendChild(createTextElement(item));
   });
   middleTexts.replaceChildren(textFrag);
@@ -557,6 +815,21 @@ profileDialog.addEventListener("cancel", (event) => {
   closeTopLayer(profileDialog);
 });
 
+if (projectDialog && projectCloseBtn) {
+  projectCloseBtn.addEventListener("click", () => {
+    closeTopLayer(projectDialog);
+  });
+
+  projectDialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeTopLayer(projectDialog);
+  });
+
+  projectDialog.addEventListener("close", () => {
+    cleanupProjectDialogMedia();
+  });
+}
+
 if (lightboxCloseBtn && lightboxDialog) {
   lightboxCloseBtn.addEventListener("click", () => {
     lightboxDialog.close();
@@ -583,6 +856,7 @@ if (scrollHintBtn) {
 }
 
 attachDialogBackdropFallback(profileDialog, true);
+attachDialogBackdropFallback(projectDialog, true);
 attachDialogBackdropFallback(lightboxDialog, false);
 
 function dismissIntroScreen() {
@@ -645,7 +919,6 @@ if (introScreen) {
       if (window.scrollY > 5) {
         dismissIntroScreen();
       }
-      dismissUnmuteHint();
     },
     { passive: true }
   );
@@ -667,5 +940,3 @@ initProfile();
 renderSection("engineering");
 preloadPhotographyThumbnails();
 preloadHighResPhotos();
-
-
