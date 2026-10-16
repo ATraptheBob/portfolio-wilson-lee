@@ -8,12 +8,30 @@
 export const portfolioData = {
   profile: {
     name: "Wilson Lee",
-    photoUrl: "assets/images/profile/avatar.svg",
+    photoUrl: "assets/images/profile/wilson-lee.jpg",
     description:
-      "Description text — Add your personal bio, engineering background, photography focus, and key achievements here. You can write a few sentences about what you build, what you shoot, and how to reach you.",
+      "Engineering student, software developer, and photographer based in Southern California. Dedicated to building practical digital tools, hardware setups, and clean visual stories.",
     links: [
-      { label: "GitHub", url: "https://github.com/ATraptheBob" },
-      { label: "Email", url: "mailto:wleebobledestructeur@gmail.com" }
+      {
+        id: "linkedin",
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/in/wilsonleetw"
+      },
+      {
+        id: "instagram",
+        label: "Instagram",
+        url: "https://www.instagram.com/wilsonleetw/"
+      },
+      {
+        id: "github",
+        label: "GitHub",
+        url: "https://github.com/ATraptheBob?tab=overview&from=2026-10-01&to=2026-10-15"
+      },
+      {
+        id: "music",
+        label: "Music",
+        url: "https://atrapthebob.github.io/stats-x9k2p7m/"
+      }
     ]
   },
 

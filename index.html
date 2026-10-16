@@ -17,7 +17,7 @@
 
   <!-- Top Bar: Pill-Shaped Toggle (Center) + Profile Circle (Top Right) -->
   <header class="top-bar">
-    <nav class="pill-switch" role="tablist" aria-label="Portfolio sections">
+    <nav class="pill-switch" role="tablist" aria-label="Portfolio sections" data-active="engineering">
       <div class="pill-indicator" id="pillIndicator" aria-hidden="true"></div>
       <button
         type="button"
@@ -53,11 +53,10 @@
     >
       <img
         id="profileTriggerImg"
-        src="assets/images/profile/avatar.svg"
-        alt="Profile"
+        src="assets/images/profile/wilson-lee.jpg"
+        alt="Wilson Lee"
         class="profile-trigger-img"
       />
-      <span class="profile-trigger-label">Profile</span>
     </button>
   </header>
 
@@ -90,13 +89,15 @@
       <div class="profile-dialog-photo-frame">
         <img
           id="profileDialogPhoto"
-          src="assets/images/profile/avatar.svg"
+          src="assets/images/profile/wilson-lee.jpg"
           alt="Wilson Lee"
           class="profile-dialog-photo"
         />
       </div>
 
-      <p id="profileDialogDesc" class="profile-dialog-description"></p>
+      <p id="profileDialogDesc" class="profile-dialog-description">
+        Engineering student, software developer, and photographer based in Southern California. Dedicated to building practical digital tools, hardware setups, and clean visual stories.
+      </p>
 
       <div id="profileDialogLinks" class="profile-dialog-links"></div>
     </div>
