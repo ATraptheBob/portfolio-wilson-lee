@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';"
+  />
   <title>Wilson Lee</title>
   <meta name="description" content="Wilson Lee portfolio: engineering projects and photography." />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="image" href="assets/images/profile/wilson-lee.jpg" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
   <header class="top-bar">
@@ -47,6 +53,8 @@
         id="profileTriggerImg"
         src="assets/images/profile/wilson-lee.jpg"
         alt="Wilson Lee"
+        width="56"
+        height="56"
         class="profile-trigger-img"
       />
     </button>
@@ -76,6 +84,8 @@
           id="profileDialogPhoto"
           src="assets/images/profile/wilson-lee.jpg"
           alt="Wilson Lee"
+          width="164"
+          height="164"
           class="profile-dialog-photo"
         />
       </div>
@@ -88,6 +98,18 @@
     </div>
   </dialog>
 
-  <script type="module" src="app.js"></script>
+  <dialog id="lightboxDialog" class="lightbox-dialog" closedby="any" aria-label="Full size image view">
+    <button
+      type="button"
+      class="lightbox-close"
+      id="lightboxCloseBtn"
+      aria-label="Close image preview"
+    >
+      &times;
+    </button>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+  </dialog>
+
+  <script type="module" src="app.js?v=4"></script>
 </body>
 </html>

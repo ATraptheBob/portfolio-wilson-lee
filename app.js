@@ -1,4 +1,4 @@
-import { portfolioData } from "./portfolio-data.js";
+import { portfolioData } from "./portfolio-data.js?v=4";
 
 const htmlEl = document.documentElement;
 const pillSwitch = document.querySelector(".pill-switch");
@@ -17,20 +17,40 @@ const profileDialogPhoto = document.getElementById("profileDialogPhoto");
 const profileDialogDesc = document.getElementById("profileDialogDesc");
 const profileDialogLinks = document.getElementById("profileDialogLinks");
 
+const lightboxDialog = document.getElementById("lightboxDialog");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
+
 let currentSection = "engineering";
 let switchTimer = null;
 
+const svgParser = new DOMParser();
+
 const LINK_ICONS = {
-  linkedin: `<svg class="profile-link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>`,
-  instagram: `<svg class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
-  github: `<svg class="profile-link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`,
-  music: `<svg class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`
+  linkedin: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>`,
+  instagram: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+  github: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`,
+  music: `<svg xmlns="http://www.w3.org/2000/svg" class="profile-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`
 };
 
-const EXPAND_ICON = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`;
+const EXPAND_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`;
+
+function parseSvgNode(svgMarkup) {
+  const doc = svgParser.parseFromString(svgMarkup, "image/svg+xml");
+  return doc.documentElement ? document.importNode(doc.documentElement, true) : null;
+}
+
+function isSafeUrl(rawUrl) {
+  try {
+    const parsed = new URL(rawUrl, window.location.origin);
+    return parsed.protocol === "https:" || parsed.protocol === "http:" || parsed.protocol === "mailto:";
+  } catch {
+    return false;
+  }
+}
 
 function getHoverAngle(baseAngle) {
-  const delta = baseAngle >= 0 ? 2.8 : -2.8;
+  const delta = baseAngle >= 0 ? 2.6 : -2.6;
   return (baseAngle + delta).toFixed(2);
 }
 
@@ -38,13 +58,22 @@ function sendYouTubeCommand(iframe, func) {
   if (!iframe || !iframe.contentWindow) return;
   iframe.contentWindow.postMessage(
     JSON.stringify({ event: "command", func, args: [] }),
-    "*"
+    "https://www.youtube.com"
   );
+}
+
+function openLightbox(src, altText) {
+  if (!lightboxDialog || !lightboxImg) return;
+  lightboxImg.src = src;
+  lightboxImg.alt = altText || "";
+  if (!lightboxDialog.open) {
+    lightboxDialog.showModal();
+  }
 }
 
 function createCardElement(card, index) {
   const article = document.createElement("article");
-  const isVideo = card.type === "youtube" && card.videoId;
+  const isVideo = card.type === "youtube" && /^[a-zA-Z0-9_-]{6,20}$/.test(card.videoId);
   article.className = `floating-card${card.size === "compact" ? " is-compact" : ""}${isVideo ? " is-video-card" : ""}`;
   article.tabIndex = 0;
 
@@ -67,6 +96,8 @@ function createCardElement(card, index) {
     iframe.className = "floating-card-video";
     iframe.src = `https://www.youtube.com/embed/${card.videoId}?enablejsapi=1&mute=1&controls=1&rel=0&playsinline=1&loop=1&playlist=${card.videoId}`;
     iframe.title = "Embedded video";
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
     iframe.allow = "autoplay; fullscreen; encrypted-media; picture-in-picture";
     iframe.allowFullscreen = true;
 
@@ -75,7 +106,10 @@ function createCardElement(card, index) {
     expandBtn.className = "video-expand-btn";
     expandBtn.setAttribute("aria-label", "Expand video full screen");
     expandBtn.title = "Full screen";
-    expandBtn.innerHTML = EXPAND_ICON;
+    const expandIconNode = parseSvgNode(EXPAND_ICON);
+    if (expandIconNode) {
+      expandBtn.appendChild(expandIconNode);
+    }
 
     expandBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -105,8 +139,25 @@ function createCardElement(card, index) {
     img.className = "floating-card-img";
     img.src = card.img;
     img.alt = card.title || "";
+    img.width = 600;
+    img.height = 600;
     img.decoding = "async";
+    if (index < 6) {
+      img.fetchPriority = "high";
+    } else {
+      img.loading = "lazy";
+    }
     inner.appendChild(img);
+
+    article.addEventListener("click", () => {
+      openLightbox(card.img, card.title);
+    });
+    article.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(card.img, card.title);
+      }
+    });
   }
 
   if (card.title || card.caption) {
@@ -163,17 +214,23 @@ function renderSection(sectionKey) {
   const sectionData = portfolioData[sectionKey];
   if (!sectionData) return;
 
-  topCluster.replaceChildren(
-    ...sectionData.topCards.map((card, idx) => createCardElement(card, idx))
-  );
+  const topFrag = document.createDocumentFragment();
+  sectionData.topCards.forEach((card, idx) => {
+    topFrag.appendChild(createCardElement(card, idx));
+  });
+  topCluster.replaceChildren(topFrag);
 
-  middleTexts.replaceChildren(
-    ...sectionData.floatingTexts.map((item) => createTextElement(item))
-  );
+  const textFrag = document.createDocumentFragment();
+  sectionData.floatingTexts.forEach((item) => {
+    textFrag.appendChild(createTextElement(item));
+  });
+  middleTexts.replaceChildren(textFrag);
 
-  bottomCluster.replaceChildren(
-    ...sectionData.bottomCards.map((card, idx) => createCardElement(card, idx + sectionData.topCards.length))
-  );
+  const bottomFrag = document.createDocumentFragment();
+  sectionData.bottomCards.forEach((card, idx) => {
+    bottomFrag.appendChild(createCardElement(card, idx + sectionData.topCards.length));
+  });
+  bottomCluster.replaceChildren(bottomFrag);
 }
 
 function switchSection(targetSection) {
@@ -197,7 +254,7 @@ function switchSection(targetSection) {
     renderSection(targetSection);
     stageContent.classList.remove("is-switching");
     switchTimer = null;
-  }, 240);
+  }, 220);
 }
 
 function initProfile() {
@@ -210,25 +267,32 @@ function initProfile() {
   profileDialogPhoto.alt = profile.name;
   profileDialogDesc.textContent = profile.description;
 
-  profileDialogLinks.replaceChildren(
-    ...(profile.links || []).map((link) => {
-      const a = document.createElement("a");
-      a.className = "profile-link";
-      a.href = link.url;
-      if (link.url.startsWith("http")) {
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
+  const linksFrag = document.createDocumentFragment();
+  (profile.links || []).forEach((link) => {
+    if (!isSafeUrl(link.url)) return;
+
+    const a = document.createElement("a");
+    a.className = "profile-link";
+    a.href = link.url;
+    if (link.url.startsWith("http")) {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
+
+    const iconMarkup = LINK_ICONS[link.id];
+    if (iconMarkup) {
+      const iconNode = parseSvgNode(iconMarkup);
+      if (iconNode) {
+        a.appendChild(iconNode);
       }
+    }
 
-      const iconSvg = LINK_ICONS[link.id] || "";
-      const span = document.createElement("span");
-      span.textContent = link.label;
-
-      a.innerHTML = iconSvg;
-      a.appendChild(span);
-      return a;
-    })
-  );
+    const span = document.createElement("span");
+    span.textContent = link.label;
+    a.appendChild(span);
+    linksFrag.appendChild(a);
+  });
+  profileDialogLinks.replaceChildren(linksFrag);
 }
 
 let supportsDisplayTransition;
@@ -268,6 +332,26 @@ async function closeTopLayer(element) {
   element.close();
 }
 
+function attachDialogBackdropFallback(dialogEl, useAnimatedClose) {
+  if (!dialogEl || "closedBy" in HTMLDialogElement.prototype) return;
+  dialogEl.addEventListener("click", (event) => {
+    if (event.target !== dialogEl) return;
+    const rect = dialogEl.getBoundingClientRect();
+    const isInside =
+      rect.top <= event.clientY &&
+      event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.left + rect.width;
+    if (!isInside) {
+      if (useAnimatedClose) {
+        closeTopLayer(dialogEl);
+      } else {
+        dialogEl.close();
+      }
+    }
+  });
+}
+
 tabButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     switchSection(btn.dataset.section);
@@ -289,22 +373,14 @@ profileDialog.addEventListener("cancel", (event) => {
   closeTopLayer(profileDialog);
 });
 
-if (!("closedBy" in HTMLDialogElement.prototype)) {
-  profileDialog.addEventListener("click", (event) => {
-    if (event.target !== profileDialog) return;
-
-    const rect = profileDialog.getBoundingClientRect();
-    const isDialogContent =
-      rect.top <= event.clientY &&
-      event.clientY <= rect.top + rect.height &&
-      rect.left <= event.clientX &&
-      event.clientX <= rect.left + rect.width;
-
-    if (isDialogContent) return;
-
-    closeTopLayer(profileDialog);
+if (lightboxCloseBtn && lightboxDialog) {
+  lightboxCloseBtn.addEventListener("click", () => {
+    lightboxDialog.close();
   });
 }
+
+attachDialogBackdropFallback(profileDialog, true);
+attachDialogBackdropFallback(lightboxDialog, false);
 
 initProfile();
 renderSection("engineering");
