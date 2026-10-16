@@ -1,4 +1,4 @@
-import { portfolioData } from "./portfolio-data.js?v=6";
+import { portfolioData } from "./portfolio-data.js?v=8";
 
 const htmlEl = document.documentElement;
 const pillSwitch = document.querySelector(".pill-switch");
@@ -22,6 +22,8 @@ const lightboxDialog = document.getElementById("lightboxDialog");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
 const scrollHintBtn = document.getElementById("scrollHintBtn");
+const introScreen = document.getElementById("introScreen");
+const bobRossZone = document.getElementById("bobRossZone");
 
 let currentSection = "engineering";
 let switchTimer = null;
@@ -83,7 +85,9 @@ function syncTutorialUI() {
   if (scrollHintBtn) {
     if (tutorialState === "scroll") {
       scrollHintBtn.classList.remove("is-hidden");
+      scrollHintBtn.classList.remove("is-static");
     } else if (tutorialState === "done") {
+      scrollHintBtn.classList.add("is-static");
       scrollHintBtn.classList.toggle("is-hidden", window.scrollY > 80);
     } else {
       scrollHintBtn.classList.add("is-hidden");
@@ -506,6 +510,84 @@ if (scrollHintBtn) {
 attachDialogBackdropFallback(profileDialog, true);
 attachDialogBackdropFallback(lightboxDialog, false);
 
+function dismissIntroScreen() {
+  if (!introScreen || introScreen.classList.contains("is-dismissed")) return;
+  introScreen.classList.add("is-dismissed");
+  introScreen.addEventListener(
+    "transitionend",
+    () => {
+      introScreen.style.display = "none";
+    },
+    { once: true }
+  );
+}
+
+if (introScreen) {
+  introScreen.addEventListener("click", dismissIntroScreen);
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      if (Math.abs(e.deltaY) > 2 || Math.abs(e.deltaX) > 2) {
+        dismissIntroScreen();
+      }
+    },
+    { passive: true }
+  );
+
+  let touchStartY = 0;
+  window.addEventListener(
+    "touchstart",
+    (e) => {
+      if (e.touches && e.touches[0]) {
+        touchStartY = e.touches[0].clientY;
+      }
+    },
+    { passive: true }
+  );
+  window.addEventListener(
+    "touchmove",
+    (e) => {
+      if (e.touches && e.touches[0]) {
+        const deltaY = touchStartY - e.touches[0].clientY;
+        if (Math.abs(deltaY) > 8) {
+          dismissIntroScreen();
+        }
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("keydown", (e) => {
+    if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Spacebar"].includes(e.key)) {
+      dismissIntroScreen();
+    }
+  });
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (window.scrollY > 5) {
+        dismissIntroScreen();
+      }
+    },
+    { passive: true }
+  );
+}
+
+if (bobRossZone) {
+  window.addEventListener("mousemove", (e) => {
+    const distFromRight = window.innerWidth - e.clientX;
+    const distFromBottom = window.innerHeight - e.clientY;
+    if (distFromRight <= 72 && distFromBottom <= 72) {
+      bobRossZone.classList.add("is-popped");
+    } else {
+      bobRossZone.classList.remove("is-popped");
+    }
+  });
+}
+
 initProfile();
 renderSection("engineering");
 preloadPhotographyThumbnails();
+
