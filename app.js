@@ -1,4 +1,4 @@
-import { portfolioData } from "./portfolio-data.js?v=4";
+import { portfolioData } from "./portfolio-data.js?v=5";
 
 const htmlEl = document.documentElement;
 const pillSwitch = document.querySelector(".pill-switch");
@@ -20,6 +20,7 @@ const profileDialogLinks = document.getElementById("profileDialogLinks");
 const lightboxDialog = document.getElementById("lightboxDialog");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
+const scrollHintBtn = document.getElementById("scrollHintBtn");
 
 let currentSection = "engineering";
 let switchTimer = null;
@@ -138,7 +139,7 @@ function createCardElement(card, index) {
     const img = document.createElement("img");
     img.className = "floating-card-img";
     img.src = card.img;
-    img.alt = card.title || "";
+    img.alt = card.title || card.subtitle || "";
     img.width = 600;
     img.height = 600;
     img.decoding = "async";
@@ -150,14 +151,22 @@ function createCardElement(card, index) {
     inner.appendChild(img);
 
     article.addEventListener("click", () => {
-      openLightbox(card.img, card.title);
+      openLightbox(card.img, card.title || card.subtitle);
     });
     article.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        openLightbox(card.img, card.title);
+        openLightbox(card.img, card.title || card.subtitle);
       }
     });
+  }
+
+  // Hover location subtitle (e.g. "Tokyo, Japan")
+  if (card.subtitle) {
+    const subtitleEl = document.createElement("div");
+    subtitleEl.className = "floating-card-subtitle";
+    subtitleEl.textContent = card.subtitle;
+    inner.appendChild(subtitleEl);
   }
 
   if (card.title || card.caption) {
@@ -377,6 +386,20 @@ if (lightboxCloseBtn && lightboxDialog) {
   lightboxCloseBtn.addEventListener("click", () => {
     lightboxDialog.close();
   });
+}
+
+if (scrollHintBtn) {
+  scrollHintBtn.addEventListener("click", () => {
+    window.scrollBy({ top: window.innerHeight * 0.75, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 80) {
+      scrollHintBtn.classList.add("is-hidden");
+    } else {
+      scrollHintBtn.classList.remove("is-hidden");
+    }
+  }, { passive: true });
 }
 
 attachDialogBackdropFallback(profileDialog, true);

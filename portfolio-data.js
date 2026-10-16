@@ -144,6 +144,7 @@ export const portfolioData = {
       {
         id: "photo-02",
         img: "assets/images/photography/IMG_0799.JPG",
+        subtitle: "Yosemite, USA",
         angle: 9.2,
         offsetY: 14,
         zIndex: 3
@@ -152,6 +153,7 @@ export const portfolioData = {
         id: "photo-video",
         type: "youtube",
         videoId: "737k8tkoNc0",
+        subtitle: "Japan 2026",
         angle: -1.8,
         offsetY: -8,
         zIndex: 4
@@ -159,6 +161,7 @@ export const portfolioData = {
       {
         id: "photo-03",
         img: "assets/images/photography/IMG_1939.jpeg",
+        subtitle: "Hualien, Taiwan",
         angle: 14.5,
         offsetY: 18,
         zIndex: 2
@@ -166,6 +169,7 @@ export const portfolioData = {
       {
         id: "photo-04",
         img: "assets/images/photography/IMG_2364.jpeg",
+        subtitle: "Pinnacles, USA",
         angle: -3.2,
         offsetY: -4,
         zIndex: 3
@@ -173,6 +177,7 @@ export const portfolioData = {
       {
         id: "photo-05",
         img: "assets/images/photography/IMG_5403.jpeg",
+        subtitle: "Yilan, Taiwan",
         angle: 6.4,
         offsetY: 10,
         zIndex: 2
@@ -180,6 +185,7 @@ export const portfolioData = {
       {
         id: "photo-06",
         img: "assets/images/photography/NO_FUSION_0709_053.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: -11.0,
         offsetY: 12,
         zIndex: 3
@@ -187,6 +193,7 @@ export const portfolioData = {
       {
         id: "photo-07",
         img: "assets/images/photography/NO_FUSION_0709_083.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: 4.5,
         offsetY: -6,
         zIndex: 2
@@ -194,6 +201,7 @@ export const portfolioData = {
       {
         id: "photo-08",
         img: "assets/images/photography/NO_FUSION_0709_085.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: -5.8,
         offsetY: 15,
         zIndex: 4
@@ -201,6 +209,7 @@ export const portfolioData = {
       {
         id: "photo-09",
         img: "assets/images/photography/NO_FUSION_0709_093.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: 12.2,
         offsetY: -8,
         zIndex: 3
@@ -208,6 +217,7 @@ export const portfolioData = {
       {
         id: "photo-10",
         img: "assets/images/photography/NO_FUSION_0710_003.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: -2.4,
         offsetY: 8,
         zIndex: 2
@@ -215,6 +225,7 @@ export const portfolioData = {
       {
         id: "photo-11",
         img: "assets/images/photography/NO_FUSION_0712_024.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: 8.6,
         offsetY: -4,
         zIndex: 3
@@ -234,6 +245,7 @@ export const portfolioData = {
       {
         id: "photo-12",
         img: "assets/images/photography/NO_FUSION_0712_028.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: -6.5,
         offsetY: 10,
         zIndex: 2
@@ -241,6 +253,7 @@ export const portfolioData = {
       {
         id: "photo-13",
         img: "assets/images/photography/NO_FUSION_0712_053.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: 11.4,
         offsetY: -6,
         zIndex: 3
@@ -248,6 +261,7 @@ export const portfolioData = {
       {
         id: "photo-14",
         img: "assets/images/photography/NO_FUSION_0712_165.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: -2.8,
         offsetY: 16,
         zIndex: 4
@@ -255,6 +269,7 @@ export const portfolioData = {
       {
         id: "photo-15",
         img: "assets/images/photography/NO_FUSION_0712_166.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: 7.2,
         offsetY: -8,
         zIndex: 2
@@ -262,6 +277,7 @@ export const portfolioData = {
       {
         id: "photo-16",
         img: "assets/images/photography/NO_FUSION_0713_006.jpeg",
+        subtitle: "Tokyo, Japan",
         angle: -12.5,
         offsetY: 14,
         zIndex: 3
@@ -269,6 +285,7 @@ export const portfolioData = {
       {
         id: "photo-17",
         img: "assets/images/photography/NO_FUSION_0716_062.jpeg",
+        subtitle: "Kyoto, Japan",
         angle: 5.4,
         offsetY: -4,
         zIndex: 2
@@ -276,6 +293,7 @@ export const portfolioData = {
       {
         id: "photo-18",
         img: "assets/images/photography/NO_FUSION_0716_064.jpeg",
+        subtitle: "Kyoto, Japan",
         angle: -8.2,
         offsetY: 12,
         zIndex: 3
@@ -283,6 +301,7 @@ export const portfolioData = {
       {
         id: "photo-19",
         img: "assets/images/photography/NO_FUSION_0716_094.jpeg",
+        subtitle: "Kyoto, Japan",
         angle: 13.8,
         offsetY: -6,
         zIndex: 4
@@ -290,6 +309,7 @@ export const portfolioData = {
       {
         id: "photo-20",
         img: "assets/images/photography/NO_FUSION_0826_014.jpeg",
+        subtitle: "Menlo Park, USA",
         angle: -3.6,
         offsetY: 10,
         zIndex: 2
@@ -297,6 +317,7 @@ export const portfolioData = {
       {
         id: "photo-21",
         img: "assets/images/photography/NO_FUSION_0910_001.jpeg",
+        subtitle: "Sacramento, USA",
         angle: 9.8,
         offsetY: -5,
         zIndex: 3
@@ -304,6 +325,7 @@ export const portfolioData = {
       {
         id: "photo-22",
         img: "assets/images/photography/NO_FUSION_0923_012.jpeg",
+        subtitle: "Riverside, USA",
         angle: -5.2,
         offsetY: 14,
         zIndex: 2

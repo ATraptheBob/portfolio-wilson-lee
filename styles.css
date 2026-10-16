@@ -21,6 +21,15 @@
   --chip-bg: rgba(0, 0, 0, 0.03);
   --chip-bg-hover: #000000;
   --chip-text-hover: #ffffff;
+
+  --scroll-btn-bg: #ffffff;
+  --scroll-btn-color: #000000;
+  --scroll-btn-border: rgba(0, 0, 0, 0.18);
+  --scroll-btn-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+  --subtitle-bg: rgba(255, 255, 255, 0.92);
+  --subtitle-color: #000000;
+  --subtitle-border: rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme="photography"] {
@@ -43,6 +52,15 @@ html[data-theme="photography"] {
   --chip-bg: rgba(255, 255, 255, 0.04);
   --chip-bg-hover: #ffffff;
   --chip-text-hover: #000000;
+
+  --scroll-btn-bg: #000000;
+  --scroll-btn-color: #ffffff;
+  --scroll-btn-border: rgba(255, 255, 255, 0.24);
+  --scroll-btn-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
+
+  --subtitle-bg: rgba(0, 0, 0, 0.82);
+  --subtitle-color: #ffffff;
+  --subtitle-border: rgba(255, 255, 255, 0.15);
 }
 
 *,
@@ -197,7 +215,7 @@ body {
   width: 100%;
   max-width: 1380px;
   margin: 0 auto;
-  padding: 24px 44px 72px;
+  padding: 24px 44px 88px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -326,6 +344,33 @@ body {
   animation: none;
 }
 
+/* Hover Location Subtitle */
+.floating-card-subtitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 7px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  background: var(--subtitle-bg);
+  color: var(--subtitle-color);
+  border-top: 1px solid var(--subtitle-border);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+
+.floating-card:hover .floating-card-subtitle,
+.floating-card:focus-visible .floating-card-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .floating-card-meta {
   position: absolute;
   inset: auto 0 0 0;
@@ -394,6 +439,53 @@ html[data-theme="photography"] .floating-card-meta {
   line-height: 1.5;
   color: var(--text-secondary);
   margin-top: 6px;
+}
+
+/* Circular Scroll Down Hint Popup Button */
+.scroll-hint-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--scroll-btn-bg);
+  color: var(--scroll-btn-color);
+  border: 1px solid var(--scroll-btn-border);
+  box-shadow: var(--scroll-btn-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: scrollHintPulse 2.4s ease-in-out infinite;
+  transition:
+    transform 0.28s ease,
+    opacity 0.28s ease,
+    border-color 0.25s ease,
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+
+.scroll-hint-btn:hover {
+  transform: translateX(-50%) scale(1.12);
+  border-color: var(--surface-border-hover);
+}
+
+.scroll-hint-btn.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(14px);
+}
+
+@keyframes scrollHintPulse {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(5px);
+  }
 }
 
 .profile-dialog {
@@ -631,7 +723,8 @@ html[data-theme="photography"] .floating-card-meta {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .floating-card-inner {
+  .floating-card-inner,
+  .scroll-hint-btn {
     animation: none;
   }
 
