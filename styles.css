@@ -1,32 +1,22 @@
-/* ==========================================================================
-   Wilson Lee Portfolio — Minimal Floating Void Theme
-   ========================================================================== */
-
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
   --text-primary: #f2f4f8;
-  --text-secondary: rgba(242, 244, 248, 0.72);
-  --text-muted: rgba(242, 244, 248, 0.45);
+  --text-secondary: rgba(242, 244, 248, 0.76);
+  --text-muted: rgba(242, 244, 248, 0.48);
 
-  --surface-border: rgba(255, 255, 255, 0.18);
-  --surface-border-hover: rgba(255, 255, 255, 0.42);
+  --surface-border: rgba(255, 255, 255, 0.2);
+  --surface-border-hover: rgba(255, 255, 255, 0.48);
   --card-bg: #111318;
 
-  /* Default theme: Distinct Engineering Blue */
-  --bg-void: #0e2445;
-  --orb-1: rgba(37, 108, 238, 0.42);
-  --orb-2: rgba(16, 150, 220, 0.30);
-  --orb-3: rgba(62, 100, 225, 0.34);
+  /* Engineering: solid dark green */
+  --bg-void: #004B00;
 }
 
 html[data-theme="photography"] {
-  /* Photography theme: Pitch Black */
-  --bg-void: #030304;
-  --orb-1: rgba(38, 38, 44, 0.16);
-  --orb-2: rgba(28, 28, 34, 0.14);
-  --orb-3: rgba(42, 38, 36, 0.12);
+  /* Photography: solid pitch black */
+  --bg-void: #000000;
 }
 
 *,
@@ -42,7 +32,7 @@ html {
   scrollbar-gutter: stable;
   overflow-x: clip;
   background-color: var(--bg-void);
-  transition: background-color 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-color 0.5s ease;
 }
 
 body {
@@ -57,91 +47,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* ==========================================================================
-   Subtle Animated Floating Color Background
-   ========================================================================== */
-
-.void-background {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.void-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.9;
-  will-change: transform;
-  transition: background-color 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.orb-1 {
-  width: 52vw;
-  height: 52vw;
-  max-width: 720px;
-  max-height: 720px;
-  top: -12%;
-  left: -8%;
-  background-color: var(--orb-1);
-  animation: orbFloat1 24s ease-in-out infinite alternate;
-}
-
-.orb-2 {
-  width: 46vw;
-  height: 46vw;
-  max-width: 640px;
-  max-height: 640px;
-  bottom: -14%;
-  right: -6%;
-  background-color: var(--orb-2);
-  animation: orbFloat2 29s ease-in-out infinite alternate;
-}
-
-.orb-3 {
-  width: 38vw;
-  height: 38vw;
-  max-width: 520px;
-  max-height: 520px;
-  top: 32%;
-  left: 34%;
-  background-color: var(--orb-3);
-  animation: orbFloat3 21s ease-in-out infinite alternate;
-}
-
-@keyframes orbFloat1 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(8vw, 6vh, 0) scale(1.08);
-  }
-}
-
-@keyframes orbFloat2 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(-7vw, -8vh, 0) scale(1.06);
-  }
-}
-
-@keyframes orbFloat3 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.96);
-  }
-  100% {
-    transform: translate3d(5vw, -5vh, 0) scale(1.05);
-  }
-}
-
-/* ==========================================================================
-   Top Navigation Bar: Pill Switch + Top-Right Profile Circle
-   ========================================================================== */
 
 .top-bar {
   position: relative;
@@ -162,7 +67,7 @@ body {
   align-items: center;
   padding: 5px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.28);
   border: 1px solid var(--surface-border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -175,8 +80,8 @@ body {
   left: 5px;
   width: calc(50% - 5px);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.13);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
@@ -216,7 +121,6 @@ body {
   outline-offset: 2px;
 }
 
-/* Top-Right Profile Circle */
 .profile-trigger {
   position: absolute;
   right: 40px;
@@ -225,7 +129,7 @@ body {
   height: 58px;
   border-radius: 50%;
   border: 1px solid var(--surface-border);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.25);
   padding: 0;
   cursor: pointer;
   overflow: hidden;
@@ -254,46 +158,41 @@ body {
   display: block;
 }
 
-/* ==========================================================================
-   Main Floating Content Stage (Top Cards, Middle Text, Bottom Cards)
-   ========================================================================== */
-
 .floating-stage {
   position: relative;
   z-index: 10;
   flex: 1;
   width: 100%;
-  max-width: 1360px;
+  max-width: 1380px;
   margin: 0 auto;
-  padding: 26px 44px 64px;
+  padding: 28px 44px 72px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 38px;
+  gap: 44px;
   opacity: 1;
   transition: opacity 0.26s ease-in-out;
 }
 
-/* Pure fade out / fade in without any spatial shift or side jitter */
 .floating-stage.is-switching {
   opacity: 0;
 }
 
-/* Card Clusters (Top & Bottom rows matching sketch) */
 .card-cluster {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: nowrap;
-  padding: 16px 0;
+  flex-wrap: wrap;
+  row-gap: 38px;
+  padding: 18px 8px;
 }
 
 .floating-card {
   position: relative;
   flex-shrink: 0;
-  width: clamp(165px, 17.5vw, 240px);
+  width: clamp(165px, 16.5vw, 228px);
   aspect-ratio: 1 / 1.06;
-  margin-left: var(--offset-x, 0px);
+  margin: 0 -7px;
   z-index: var(--base-z, 1);
   transform: translate3d(0, var(--offset-y, 0px), 0) rotate(var(--base-angle, 0deg)) scale(1);
   transition:
@@ -304,16 +203,16 @@ body {
   will-change: transform;
 }
 
-.floating-card:first-child {
-  margin-left: 0;
-}
-
 .floating-card.is-compact {
-  width: clamp(130px, 13.5vw, 182px);
+  width: clamp(130px, 13vw, 178px);
   aspect-ratio: 1 / 1;
 }
 
-/* Hover: tilts slightly more and enlarges slightly */
+.floating-card.is-video-card {
+  width: clamp(210px, 21vw, 286px);
+  aspect-ratio: 16 / 10;
+}
+
 .floating-card:hover,
 .floating-card:focus-visible {
   z-index: 30;
@@ -328,7 +227,7 @@ body {
   border-radius: 3px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.52);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
   animation: subtleCardFloat var(--float-duration, 7s) ease-in-out infinite alternate;
   animation-delay: var(--float-delay, 0s);
   transition: border-color 0.3s ease, box-shadow 0.42s ease;
@@ -336,7 +235,7 @@ body {
 
 .floating-card:hover .floating-card-inner {
   border-color: var(--surface-border-hover);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.72);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.75);
 }
 
 @keyframes subtleCardFloat {
@@ -348,13 +247,53 @@ body {
   }
 }
 
-.floating-card-img {
+.floating-card-img,
+.floating-card-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: 0;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.video-expand-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.65);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.floating-card.is-video-card:hover .video-expand-btn,
+.video-expand-btn:focus-visible {
+  opacity: 1;
+}
+
+.video-expand-btn:hover {
+  background: rgba(0, 0, 0, 0.88);
+  transform: scale(1.08);
+}
+
+.floating-card-inner:fullscreen,
+.floating-card-inner:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  border-radius: 0;
+  animation: none;
 }
 
 .floating-card-meta {
@@ -386,19 +325,19 @@ body {
   color: var(--text-secondary);
 }
 
-/* Middle Band: Floating Off-Kilter Text Blocks (matches "Text here" in sketch) */
 .floating-text-band {
   display: flex;
   align-items: center;
   justify-content: space-around;
   gap: 48px;
-  padding: 12px 4vw;
+  padding: 16px 4vw;
   flex-wrap: wrap;
 }
 
 .floating-text-item {
-  max-width: 420px;
+  max-width: 680px;
   padding: 10px 16px;
+  text-align: center;
   transform: translate3d(0, var(--offset-y, 0px), 0) rotate(var(--base-angle, -2deg)) scale(1);
   transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease;
   cursor: default;
@@ -409,23 +348,19 @@ body {
 }
 
 .floating-text-heading {
-  font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+  font-size: clamp(1.25rem, 2.1vw, 1.85rem);
   font-weight: 400;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
-  line-height: 1.2;
-  margin-bottom: 6px;
+  line-height: 1.35;
 }
 
 .floating-text-sub {
   font-size: 0.92rem;
   line-height: 1.5;
   color: var(--text-secondary);
+  margin-top: 6px;
 }
-
-/* ==========================================================================
-   Foreground Profile Popup Window (Modal Dialog)
-   ========================================================================== */
 
 .profile-dialog {
   margin: auto;
@@ -440,7 +375,6 @@ body {
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.78);
   overflow-y: auto;
 
-  /* Closed/exit state & top-layer discrete transitions */
   opacity: 0;
   transform: scale(0.92);
   transition-property: opacity, transform, display, overlay;
@@ -469,7 +403,6 @@ body {
   }
 
   &::backdrop {
-    /* Subtle dim so underlying floating projects remain visible on the sides */
     background-color: rgba(0, 0, 0, 0.38);
     backdrop-filter: blur(2.5px);
     -webkit-backdrop-filter: blur(2.5px);
@@ -586,10 +519,6 @@ body {
   display: block;
 }
 
-/* ==========================================================================
-   Responsive Adjustments & Reduced Motion
-   ========================================================================== */
-
 @media (max-width: 960px) {
   .top-bar {
     padding: 20px 20px 10px;
@@ -603,12 +532,11 @@ body {
   }
 
   .card-cluster {
-    flex-wrap: wrap;
     gap: 18px;
   }
 
   .floating-card {
-    margin-left: 0;
+    margin: 0;
     width: clamp(145px, 28vw, 200px);
   }
 
@@ -622,7 +550,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .void-orb,
   .floating-card-inner {
     animation: none;
   }

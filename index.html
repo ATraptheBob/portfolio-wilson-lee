@@ -3,19 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wilson Lee — Engineering &amp; Photography</title>
-  <meta name="description" content="Portfolio of Wilson Lee — Engineering projects and photography." />
+  <title>Wilson Lee</title>
+  <meta name="description" content="Wilson Lee portfolio: engineering projects and photography." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Subtle animated floating color orbs in the void -->
-  <div class="void-background" aria-hidden="true">
-    <div class="void-orb orb-1"></div>
-    <div class="void-orb orb-2"></div>
-    <div class="void-orb orb-3"></div>
-  </div>
-
-  <!-- Top Bar: Pill-Shaped Toggle (Center) + Profile Circle (Top Right) -->
   <header class="top-bar">
     <nav class="pill-switch" role="tablist" aria-label="Portfolio sections" data-active="engineering">
       <div class="pill-indicator" id="pillIndicator" aria-hidden="true"></div>
@@ -60,19 +52,12 @@
     </button>
   </header>
 
-  <!-- Main Floating Content Stage (matches sketch layout) -->
   <main id="stage-content" class="floating-stage" aria-live="polite">
-    <!-- Top cluster of 5 off-kilter floating cards -->
-    <section class="card-cluster top-cluster" id="topCluster" aria-label="Featured works top row"></section>
-
-    <!-- Middle band of floating off-kilter text blocks -->
-    <section class="floating-text-band" id="middleTexts" aria-label="Achievements and notes"></section>
-
-    <!-- Bottom cluster of 5 off-kilter floating cards -->
-    <section class="card-cluster bottom-cluster" id="bottomCluster" aria-label="Featured works bottom row"></section>
+    <section class="card-cluster top-cluster" id="topCluster" aria-label="Top works"></section>
+    <section class="floating-text-band" id="middleTexts" aria-label="Notes"></section>
+    <section class="card-cluster bottom-cluster" id="bottomCluster" aria-label="Bottom works"></section>
   </main>
 
-  <!-- Foreground Profile Popup Window (visible over either tab, preserving side visibility) -->
   <dialog id="profileDialog" class="profile-dialog" closedby="any" aria-labelledby="profileDialogTitle">
     <div class="profile-dialog-inner">
       <button
