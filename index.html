@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="engineering">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wilson Lee — Engineering &amp; Photography</title>
+  <meta name="description" content="Portfolio of Wilson Lee — Engineering projects and photography." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Subtle animated floating color orbs in the void -->
+  <div class="void-background" aria-hidden="true">
+    <div class="void-orb orb-1"></div>
+    <div class="void-orb orb-2"></div>
+    <div class="void-orb orb-3"></div>
+  </div>
+
+  <!-- Top Bar: Pill-Shaped Toggle (Center) + Profile Circle (Top Right) -->
+  <header class="top-bar">
+    <nav class="pill-switch" role="tablist" aria-label="Portfolio sections">
+      <div class="pill-indicator" id="pillIndicator" aria-hidden="true"></div>
+      <button
+        type="button"
+        role="tab"
+        id="tab-engineering"
+        class="pill-option is-active"
+        aria-selected="true"
+        aria-controls="stage-content"
+        data-section="engineering"
+      >
+        Engineering
+      </button>
+      <button
+        type="button"
+        role="tab"
+        id="tab-photography"
+        class="pill-option"
+        aria-selected="false"
+        aria-controls="stage-content"
+        data-section="photography"
+      >
+        Photography
+      </button>
+    </nav>
+
+    <button
+      type="button"
+      class="profile-trigger"
+      id="profileTrigger"
+      aria-label="Open Wilson Lee profile window"
+      aria-haspopup="dialog"
+      aria-controls="profileDialog"
+    >
+      <img
+        id="profileTriggerImg"
+        src="assets/images/profile/avatar.svg"
+        alt="Profile"
+        class="profile-trigger-img"
+      />
+      <span class="profile-trigger-label">Profile</span>
+    </button>
+  </header>
+
+  <!-- Main Floating Content Stage (matches sketch layout) -->
+  <main id="stage-content" class="floating-stage" aria-live="polite">
+    <!-- Top cluster of 5 off-kilter floating cards -->
+    <section class="card-cluster top-cluster" id="topCluster" aria-label="Featured works top row"></section>
+
+    <!-- Middle band of floating off-kilter text blocks -->
+    <section class="floating-text-band" id="middleTexts" aria-label="Achievements and notes"></section>
+
+    <!-- Bottom cluster of 5 off-kilter floating cards -->
+    <section class="card-cluster bottom-cluster" id="bottomCluster" aria-label="Featured works bottom row"></section>
+  </main>
+
+  <!-- Foreground Profile Popup Window (visible over either tab, preserving side visibility) -->
+  <dialog id="profileDialog" class="profile-dialog" closedby="any" aria-labelledby="profileDialogTitle">
+    <div class="profile-dialog-inner">
+      <button
+        type="button"
+        class="profile-dialog-close"
+        id="profileCloseBtn"
+        aria-label="Close profile window"
+      >
+        &times;
+      </button>
+
+      <h2 id="profileDialogTitle" class="profile-dialog-name">Wilson Lee</h2>
+
+      <div class="profile-dialog-photo-frame">
+        <img
+          id="profileDialogPhoto"
+          src="assets/images/profile/avatar.svg"
+          alt="Wilson Lee"
+          class="profile-dialog-photo"
+        />
+      </div>
+
+      <p id="profileDialogDesc" class="profile-dialog-description"></p>
+
+      <div id="profileDialogLinks" class="profile-dialog-links"></div>
+    </div>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
