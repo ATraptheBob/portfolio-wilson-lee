@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-  <rect width="600" height="600" fill="#f7f7f7"/>
-  <rect x="28" y="28" width="544" height="544" fill="none" stroke="#d4d4d4" stroke-width="1.5"/>
-  <text x="48" y="66" fill="#737373" font-family="monospace" font-size="14" letter-spacing="2">WIP</text>
-  <text x="300" y="294" fill="#171717" font-family="sans-serif" font-size="22" font-weight="500" text-anchor="middle" letter-spacing="0.5">Go Kart</text>
-  <text x="300" y="328" fill="#737373" font-family="monospace" font-size="14" text-anchor="middle" letter-spacing="1">photos coming soon</text>
-</svg>

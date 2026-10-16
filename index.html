@@ -6,13 +6,14 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta
     http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; media-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://i.ytimg.com; media-src 'self'; connect-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests;"
   />
   <title>Wilson Lee</title>
   <meta name="description" content="Wilson Lee portfolio: engineering projects and photography." />
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=11" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=12" />
+  <link rel="preload" href="assets/fonts/shantell-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" as="image" href="assets/images/profile/wilson-lee.jpg" />
-  <link rel="stylesheet" href="styles.css?v=11" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
   <!-- Fullscreen Welcome / Loading Intro Screen -->
@@ -230,6 +231,6 @@
     </div>
   </aside>
 
-  <script type="module" src="app.js?v=11"></script>
+  <script type="module" src="app.js?v=12"></script>
 </body>
 </html>

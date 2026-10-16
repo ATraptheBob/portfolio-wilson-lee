@@ -1,4 +1,4 @@
-import { portfolioData } from "./portfolio-data.js?v=11";
+import { portfolioData } from "./portfolio-data.js?v=12";
 
 const htmlEl = document.documentElement;
 const pillSwitch = document.querySelector(".pill-switch");
@@ -60,14 +60,14 @@ const LINK_ICONS = {
 const EXPAND_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`;
 
 const VIDEO_ICONS = {
-  centerPlay: `<svg class="video-center-icon" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 2px;"><polygon points="6 4 20 12 6 20 6 4"/></svg>`,
-  centerReplay: `<svg class="video-center-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>`,
-  play: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>`,
-  pause: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`,
-  mute: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`,
-  unmute: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`,
-  fullscreen: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`,
-  fullscreenExit: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`
+  centerPlay: `<svg xmlns="http://www.w3.org/2000/svg" class="video-center-icon" viewBox="0 0 24 24" fill="#ffffff" style="margin-left: 3px;"><polygon points="6 4 20 12 6 20 6 4"/></svg>`,
+  centerReplay: `<svg xmlns="http://www.w3.org/2000/svg" class="video-center-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>`,
+  play: `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>`,
+  pause: `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`,
+  mute: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`,
+  unmute: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`,
+  fullscreen: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`,
+  fullscreenExit: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`
 };
 
 function formatTime(seconds) {
@@ -152,6 +152,10 @@ function openLightbox(src, altText) {
   advanceTutorial("photo");
   if (!lightboxDialog || !lightboxImg) return;
 
+  if (typeof mediaPreloader !== "undefined") {
+    mediaPreloader.prioritize([{ src, type: "image" }]);
+  }
+
   currentLightboxSrc = src;
   lightboxImg.classList.remove("is-loaded");
   lightboxImg.removeAttribute("src");
@@ -187,6 +191,7 @@ function cleanupProjectDialogMedia() {
     activeMediaObserver = null;
   }
   if (!projectDialogGrid) return;
+  projectDialogGrid.style.display = "";
   const videos = projectDialogGrid.querySelectorAll("video");
   for (const video of videos) {
     video.pause();
@@ -603,18 +608,28 @@ function openProjectDialog(project) {
   projectDialogTitle.textContent = project.title || "";
   projectDialogDesc.textContent = project.description || "";
 
-  const frag = document.createDocumentFragment();
-  (project.items || []).forEach((item, idx) => {
-    frag.appendChild(createExpandedMediaCard(item, idx, project.title));
-  });
-  projectDialogGrid.replaceChildren(frag);
+  const items = project.items || [];
+  if (items.length === 0) {
+    projectDialogGrid.replaceChildren();
+    projectDialogGrid.style.display = "none";
+  } else {
+    projectDialogGrid.style.display = "";
+    if (typeof mediaPreloader !== "undefined") {
+      mediaPreloader.prioritize(items);
+    }
+
+    const frag = document.createDocumentFragment();
+    items.forEach((item, idx) => {
+      frag.appendChild(createExpandedMediaCard(item, idx, project.title));
+    });
+    projectDialogGrid.replaceChildren(frag);
+    setupLazyVideosInDialog(projectDialogGrid);
+  }
 
   if (!projectDialog.open) {
     projectDialog.showModal();
   }
   projectDialog.scrollTop = 0;
-
-  setupLazyVideosInDialog(projectDialogGrid);
 }
 
 function createProjectPileElement(project, index) {
@@ -651,48 +666,59 @@ function createProjectPileElement(project, index) {
   stack.className = "pile-stack";
 
   const items = project.items || [];
-  const backingItems = items.slice(1, 4);
+  if (items.length === 0) {
+    const emptyTopCard = document.createElement("div");
+    emptyTopCard.className = "pile-card-top is-empty-pile";
+    const label = document.createElement("span");
+    label.className = "empty-pile-text";
+    label.textContent = "Photos coming soon";
+    emptyTopCard.appendChild(label);
+    stack.appendChild(emptyTopCard);
+  } else {
+    const backingItems = items.slice(1, 4);
 
-  for (let i = backingItems.length - 1; i >= 0; i--) {
-    const backItem = backingItems[i];
-    const backCard = document.createElement("div");
-    backCard.className = `pile-card-back pile-card-back-${i + 1}`;
-    backCard.setAttribute("aria-hidden", "true");
+    for (let i = backingItems.length - 1; i >= 0; i--) {
+      const backItem = backingItems[i];
+      const backCard = document.createElement("div");
+      backCard.className = `pile-card-back pile-card-back-${i + 1}`;
+      backCard.setAttribute("aria-hidden", "true");
 
-    const backImg = document.createElement("img");
-    backImg.className = "floating-card-img";
-    backImg.src = backItem.thumb || backItem.src;
-    backImg.alt = "";
-    backImg.width = backItem.width || 400;
-    backImg.height = backItem.height || 400;
-    backImg.decoding = "async";
-    backImg.fetchPriority = "low";
+      const backImg = document.createElement("img");
+      backImg.className = "floating-card-img";
+      backImg.src = backItem.thumb || backItem.src;
+      backImg.alt = "";
+      backImg.width = backItem.width || 400;
+      backImg.height = backItem.height || 400;
+      backImg.decoding = "async";
+      backImg.fetchPriority = "low";
 
-    backCard.appendChild(backImg);
-    stack.appendChild(backCard);
-  }
-
-  const topItem = items[0];
-  const topCard = document.createElement("div");
-  topCard.className = "pile-card-top";
-
-  if (topItem) {
-    const topImg = document.createElement("img");
-    topImg.className = "floating-card-img";
-    topImg.src = topItem.thumb || topItem.src;
-    topImg.alt = project.title || "";
-    topImg.width = topItem.width || 540;
-    topImg.height = topItem.height || 540;
-    topImg.decoding = "async";
-    if (index < 2) {
-      topImg.fetchPriority = "high";
-    } else if (index >= 5) {
-      topImg.loading = "lazy";
+      backCard.appendChild(backImg);
+      stack.appendChild(backCard);
     }
-    topCard.appendChild(topImg);
+
+    const topItem = items[0];
+    const topCard = document.createElement("div");
+    topCard.className = "pile-card-top";
+
+    if (topItem) {
+      const topImg = document.createElement("img");
+      topImg.className = "floating-card-img";
+      topImg.src = topItem.thumb || topItem.src;
+      topImg.alt = project.title || "";
+      topImg.width = topItem.width || 540;
+      topImg.height = topItem.height || 540;
+      topImg.decoding = "async";
+      if (index < 2) {
+        topImg.fetchPriority = "high";
+      } else if (index >= 5) {
+        topImg.loading = "lazy";
+      }
+      topCard.appendChild(topImg);
+    }
+
+    stack.appendChild(topCard);
   }
 
-  stack.appendChild(topCard);
   article.appendChild(stack);
 
   const titleEl = document.createElement("h3");
@@ -727,23 +753,187 @@ function preloadPhotographyThumbnails() {
   });
 }
 
-function preloadHighResPhotos() {
-  const photoSection = portfolioData.photography;
-  if (!photoSection) return;
-  const allCards = [...(photoSection.topCards || []), ...(photoSection.bottomCards || [])];
-  allCards.forEach((card, idx) => {
-    if (card.img && card.img.endsWith(".JPG")) {
-      setTimeout(() => {
-        const fullImg = new Image();
-        fullImg.decoding = "async";
-        fullImg.src = card.img;
-        if (fullImg.decode) {
-          fullImg.decode().catch(() => {});
-        }
-        preloadedHighRes.push(fullImg);
-      }, 60 + idx * 70);
+class MediaPreloader {
+  constructor() {
+    this.queue = [];
+    this.loadedUrls = new Set();
+    this.isPaused = false;
+    this.isProcessing = false;
+    this.idleHandle = null;
+    this.resumeTimeout = null;
+  }
+
+  add(items) {
+    if (!items) return;
+    const list = Array.isArray(items) ? items : [items];
+    for (const item of list) {
+      if (!item) continue;
+      const url = item.src || item.img;
+      if (!url || this.loadedUrls.has(url)) continue;
+      this.queue.push({ src: url, type: item.type || "image" });
     }
-  });
+  }
+
+  prioritize(items) {
+    this.pause();
+    clearTimeout(this.resumeTimeout);
+
+    if (!items) {
+      this.resumeTimeout = setTimeout(() => this.resume(), 1200);
+      return;
+    }
+
+    const list = Array.isArray(items) ? items : [items];
+    const urgent = list
+      .map((it) => (typeof it === "string" ? { src: it, type: "image" } : { src: it.src || it.img, type: it.type || "image" }))
+      .filter((it) => it.src && !this.loadedUrls.has(it.src));
+
+    if (urgent.length === 0) {
+      this.resumeTimeout = setTimeout(() => this.resume(), 800);
+      return;
+    }
+
+    Promise.allSettled(urgent.map((it) => this.loadSingle(it, "high"))).then(() => {
+      this.resumeTimeout = setTimeout(() => this.resume(), 1200);
+    });
+  }
+
+  pause() {
+    this.isPaused = true;
+    if (this.idleHandle) {
+      if ("cancelIdleCallback" in window) {
+        cancelIdleCallback(this.idleHandle);
+      } else {
+        clearTimeout(this.idleHandle);
+      }
+      this.idleHandle = null;
+    }
+  }
+
+  resume() {
+    if (!this.isPaused) return;
+    this.isPaused = false;
+    this.scheduleNext();
+  }
+
+  start() {
+    this.isPaused = false;
+    this.scheduleNext();
+  }
+
+  scheduleNext() {
+    if (this.isPaused || this.isProcessing || this.queue.length === 0) return;
+
+    const run = () => {
+      this.idleHandle = null;
+      this.processQueue();
+    };
+
+    if ("requestIdleCallback" in window) {
+      this.idleHandle = requestIdleCallback(run, { timeout: 2000 });
+    } else {
+      this.idleHandle = setTimeout(run, 150);
+    }
+  }
+
+  async processQueue() {
+    if (this.isPaused || this.queue.length === 0) return;
+    this.isProcessing = true;
+
+    const item = this.queue.shift();
+    if (item && item.src && !this.loadedUrls.has(item.src)) {
+      await this.loadSingle(item, "low");
+    }
+
+    this.isProcessing = false;
+    if (!this.isPaused && this.queue.length > 0) {
+      this.scheduleNext();
+    }
+  }
+
+  loadSingle(item, priority = "low") {
+    if (!item || !item.src || this.loadedUrls.has(item.src)) {
+      return Promise.resolve();
+    }
+
+    if (item.type === "video") {
+      return new Promise((resolve) => {
+        const video = document.createElement("video");
+        video.preload = "metadata";
+        video.muted = true;
+        video.playsInline = true;
+        video.src = item.src;
+
+        const cleanup = () => {
+          this.loadedUrls.add(item.src);
+          video.onloadedmetadata = null;
+          video.onerror = null;
+          video.removeAttribute("src");
+          video.load();
+          resolve();
+        };
+
+        video.onloadedmetadata = cleanup;
+        video.onerror = cleanup;
+        setTimeout(cleanup, 3000);
+      });
+    }
+
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.decoding = "async";
+      if ("fetchPriority" in HTMLImageElement.prototype) {
+        img.fetchPriority = priority;
+      }
+      img.src = item.src;
+
+      const cleanup = () => {
+        this.loadedUrls.add(item.src);
+        preloadedHighRes.push(img);
+        resolve();
+      };
+
+      if ("decode" in img) {
+        img.decode().then(cleanup).catch(cleanup);
+      } else {
+        img.onload = cleanup;
+        img.onerror = cleanup;
+      }
+      setTimeout(cleanup, 3500);
+    });
+  }
+}
+
+const mediaPreloader = new MediaPreloader();
+
+function initBackgroundMediaPreloader() {
+  const photoSection = portfolioData.photography;
+  if (photoSection) {
+    const allPhotoCards = [...(photoSection.topCards || []), ...(photoSection.bottomCards || [])];
+    mediaPreloader.add(allPhotoCards.map((c) => ({ src: c.img, type: "image" })));
+  }
+
+  const engSection = portfolioData.engineering;
+  if (engSection) {
+    const allEngCards = [...(engSection.topCards || []), ...(engSection.bottomCards || [])];
+    for (const card of allEngCards) {
+      if (card.type === "project" && card.items) {
+        mediaPreloader.add(card.items);
+      }
+    }
+  }
+
+  const startWhenIdle = () => {
+    setTimeout(() => {
+      mediaPreloader.start();
+    }, 800);
+  };
+
+  if (document.readyState === "complete") {
+    startWhenIdle();
+  } else {
+    window.addEventListener("load", startWhenIdle, { once: true });
+  }
 }
 
 function attachProgressiveImage(imgEl, card) {
@@ -1250,4 +1440,4 @@ if (bobRossZone) {
 initProfile();
 renderSection("engineering");
 preloadPhotographyThumbnails();
-preloadHighResPhotos();
+initBackgroundMediaPreloader();

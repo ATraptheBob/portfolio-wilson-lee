@@ -667,65 +667,21 @@ export const portfolioData = {
         id: "eng-go-kart",
         type: "project",
         title: "Go Kart",
-        description: "Photos coming soon — add photos to assets/Projects/Go kart.",
+        description: "Photos coming soon",
         angle: -2.8,
         offsetY: 12,
         zIndex: 2,
-        items: [
-          {
-            type: "image",
-            thumb: "assets/images/engineering/go-kart.svg",
-            src: "assets/images/engineering/go-kart.svg",
-            width: 600,
-            height: 600
-          },
-          {
-            type: "image",
-            thumb: "assets/images/engineering/placeholder-back.svg",
-            src: "assets/images/engineering/placeholder-back.svg",
-            width: 600,
-            height: 600
-          },
-          {
-            type: "image",
-            thumb: "assets/images/engineering/placeholder-back.svg",
-            src: "assets/images/engineering/placeholder-back.svg",
-            width: 600,
-            height: 600
-          }
-        ]
+        items: []
       },
       {
         id: "eng-shed",
         type: "project",
         title: "Shed",
-        description: "Photos coming soon — add photos to assets/Projects/Shed.",
+        description: "Photos coming soon",
         angle: 5.2,
         offsetY: -4,
         zIndex: 3,
-        items: [
-          {
-            type: "image",
-            thumb: "assets/images/engineering/shed.svg",
-            src: "assets/images/engineering/shed.svg",
-            width: 600,
-            height: 600
-          },
-          {
-            type: "image",
-            thumb: "assets/images/engineering/placeholder-back.svg",
-            src: "assets/images/engineering/placeholder-back.svg",
-            width: 600,
-            height: 600
-          },
-          {
-            type: "image",
-            thumb: "assets/images/engineering/placeholder-back.svg",
-            src: "assets/images/engineering/placeholder-back.svg",
-            width: 600,
-            height: 600
-          }
-        ]
+        items: []
       }
     ]
   },
