@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "Wilson Lee",
     photoUrl: "assets/images/profile/wilson-lee.jpg",
     description:
-      "Engineering student, software developer, and photographer based in Southern California. Dedicated to building practical digital tools, hardware setups, and clean visual stories.",
+      "Current mech e at UCR BCOE. I love photography, skiing, and making small engineering projects. And food, I eat a lot of it (add me on Beli). Thanks for visiting my website!",
     links: [
       {
         id: "linkedin",

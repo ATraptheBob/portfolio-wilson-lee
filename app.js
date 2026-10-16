@@ -1,4 +1,4 @@
-import { portfolioData } from "./portfolio-data.js?v=8";
+import { portfolioData } from "./portfolio-data.js?v=9";
 
 const htmlEl = document.documentElement;
 const pillSwitch = document.querySelector(".pill-switch");
@@ -24,6 +24,7 @@ const lightboxCloseBtn = document.getElementById("lightboxCloseBtn");
 const scrollHintBtn = document.getElementById("scrollHintBtn");
 const introScreen = document.getElementById("introScreen");
 const bobRossZone = document.getElementById("bobRossZone");
+const unmuteHint = document.getElementById("unmuteHint");
 
 let currentSection = "engineering";
 let switchTimer = null;
@@ -31,7 +32,11 @@ let switchTimer = null;
 // Sequential tutorial state machine: "photo" -> "scroll" -> "profile" -> "done"
 let tutorialState = "photo";
 
+let hasShownUnmuteHint = false;
+let activeVideoIframe = null;
+
 const preloadedThumbs = [];
+const preloadedHighRes = [];
 const svgParser = new DOMParser();
 
 const LINK_ICONS = {
@@ -64,12 +69,53 @@ function getHoverAngle(baseAngle) {
   return (baseAngle + delta).toFixed(2);
 }
 
-function sendYouTubeCommand(iframe, func) {
+function sendYouTubeCommand(iframe, func, args = []) {
   if (!iframe || !iframe.contentWindow) return;
   iframe.contentWindow.postMessage(
-    JSON.stringify({ event: "command", func, args: [] }),
+    JSON.stringify({ event: "command", func, args }),
     "https://www.youtube.com"
   );
+}
+
+function triggerUnmuteHint(iframe) {
+  if (hasShownUnmuteHint || !unmuteHint) return;
+  hasShownUnmuteHint = true;
+  activeVideoIframe = iframe;
+  unmuteHint.classList.remove("is-hidden");
+  void unmuteHint.offsetWidth;
+  unmuteHint.classList.add("is-visible");
+
+  setTimeout(() => {
+    dismissUnmuteHint();
+  }, 6500);
+}
+
+function dismissUnmuteHint() {
+  if (!unmuteHint || !unmuteHint.classList.contains("is-visible")) return;
+  unmuteHint.classList.remove("is-visible");
+  setTimeout(() => {
+    unmuteHint.classList.add("is-hidden");
+  }, 320);
+}
+
+if (unmuteHint) {
+  unmuteHint.addEventListener("click", () => {
+    if (activeVideoIframe) {
+      sendYouTubeCommand(activeVideoIframe, "unMute");
+      sendYouTubeCommand(activeVideoIframe, "setVolume", [100]);
+    }
+    dismissUnmuteHint();
+  });
+  unmuteHint.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (activeVideoIframe) {
+        sendYouTubeCommand(activeVideoIframe, "unMute");
+        sendYouTubeCommand(activeVideoIframe, "setVolume", [100]);
+      }
+      dismissUnmuteHint();
+    }
+  });
 }
 
 function syncTutorialUI() {
@@ -136,6 +182,25 @@ function preloadPhotographyThumbnails() {
   });
 }
 
+function preloadHighResPhotos() {
+  const photoSection = portfolioData.photography;
+  if (!photoSection) return;
+  const allCards = [...(photoSection.topCards || []), ...(photoSection.bottomCards || [])];
+  allCards.forEach((card, idx) => {
+    if (card.img && card.img.endsWith(".JPG")) {
+      setTimeout(() => {
+        const fullImg = new Image();
+        fullImg.decoding = "async";
+        fullImg.src = card.img;
+        if (fullImg.decode) {
+          fullImg.decode().catch(() => {});
+        }
+        preloadedHighRes.push(fullImg);
+      }, 60 + idx * 70);
+    }
+  });
+}
+
 function attachProgressiveImage(imgEl, card) {
   if (card.thumb) {
     imgEl.src = card.thumb;
@@ -147,7 +212,9 @@ function attachProgressiveImage(imgEl, card) {
         imgEl.src = card.img;
       }
     };
-    if (fullImg.decode) {
+    if (fullImg.complete) {
+      swapIn();
+    } else if (fullImg.decode) {
       fullImg.decode().then(swapIn).catch(() => {
         fullImg.onload = swapIn;
       });
@@ -212,18 +279,26 @@ function createCardElement(card, index) {
 
     expandBtn.addEventListener("click", (e) => {
       e.stopPropagation();
+      dismissUnmuteHint();
       const target = inner.requestFullscreen
         ? inner.requestFullscreen()
         : inner.webkitRequestFullscreen
         ? inner.webkitRequestFullscreen()
         : iframe.requestFullscreen?.();
       sendYouTubeCommand(iframe, "unMute");
+      sendYouTubeCommand(iframe, "setVolume", [100]);
       sendYouTubeCommand(iframe, "playVideo");
       return target;
     });
 
     article.addEventListener("mouseenter", () => {
       sendYouTubeCommand(iframe, "playVideo");
+      triggerUnmuteHint(iframe);
+    });
+
+    article.addEventListener("focusin", () => {
+      sendYouTubeCommand(iframe, "playVideo");
+      triggerUnmuteHint(iframe);
     });
 
     article.addEventListener("mouseleave", () => {
@@ -570,6 +645,7 @@ if (introScreen) {
       if (window.scrollY > 5) {
         dismissIntroScreen();
       }
+      dismissUnmuteHint();
     },
     { passive: true }
   );
@@ -590,4 +666,6 @@ if (bobRossZone) {
 initProfile();
 renderSection("engineering");
 preloadPhotographyThumbnails();
+preloadHighResPhotos();
+
 
